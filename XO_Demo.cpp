@@ -58,7 +58,6 @@ int main() {
     }
     // Delete the dynamically allocated array of player pointers itself.
     delete[] players;
-
     return 0; // Exit successfully
 }
 
