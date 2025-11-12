@@ -5,6 +5,9 @@
 #include <cctype>  // for toupper()
 #include "XO_Classes.h"
 
+#include <math.h>
+#include <queue>
+
 using namespace std;
 
 //--------------------------------------- X_O_Board Implementation
@@ -19,8 +22,16 @@ X_O_Board::X_O_Board() : Board(3, 3) {
 bool X_O_Board::update_board(Move<char>* move) {
     int x = move->get_x();
     int y = move->get_y();
-    char mark = move->get_symbol();
 
+    qx.push(x);
+    qy.push(y);
+    char mark = move->get_symbol();
+    if (qx.size() > 6) {
+        board[qx.front()][qy.front()] = blank_symbol;
+        qx.pop();
+        qy.pop();
+        n_moves--;
+    }
     // Validate move and apply if valid
     if (!(x < 0 || x >= rows || y < 0 || y >= columns) &&
         (board[x][y] == blank_symbol || mark == 0)) {
@@ -51,7 +62,6 @@ bool X_O_Board::is_win(Player<char>* player) {
             (all_equal(board[0][i], board[1][i], board[2][i]) && board[0][i] == sym))
             return true;
     }
-
     // Check diagonals
     if ((all_equal(board[0][0], board[1][1], board[2][2]) && board[1][1] == sym) ||
         (all_equal(board[0][2], board[1][1], board[2][0]) && board[1][1] == sym))
@@ -59,7 +69,6 @@ bool X_O_Board::is_win(Player<char>* player) {
 
     return false;
 }
-
 bool X_O_Board::is_draw(Player<char>* player) {
     return (n_moves == 9 && !is_win(player));
 }
@@ -86,10 +95,13 @@ Move<char>* XO_UI::get_move(Player<char>* player) {
     if (player->get_type() == PlayerType::HUMAN) {
         cout << "\nPlease enter your move x and y (0 to 2): ";
         cin >> x >> y;
+
+
     }
     else if (player->get_type() == PlayerType::COMPUTER) {
         x = rand() % player->get_board_ptr()->get_rows();
         y = rand() % player->get_board_ptr()->get_columns();
+
     }
     return new Move<char>(x, y, player->get_symbol());
 }

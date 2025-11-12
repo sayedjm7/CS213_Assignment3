@@ -11,7 +11,43 @@
 #define XO_CLASSES_H
 
 #include "BoardGame_Classes.h"
+#include <queue>
 using namespace std;
+
+
+class XO_UI : public UI<char> {
+public:
+
+    queue<int> qx;
+    queue<int> qy;
+    /**
+     * @brief Constructs an XO_UI object.
+     *
+     * Initializes the base `UI<char>` class with the welcome message "FCAI X-O".
+     */
+    XO_UI();
+
+    /**
+     * @brief Destructor for XO_UI.
+     */
+    ~XO_UI() {};
+
+    /**
+     * @brief Creates a player of the specified type.
+     * @param name Name of the player.
+     * @param symbol Character symbol ('X' or 'O') assigned to the player.
+     * @param type The type of the player (Human or Computer).
+     * @return Pointer to the newly created Player<char> instance.
+     */
+    Player<char>* create_player(string& name, char symbol, PlayerType type);
+
+    /**
+     * @brief Retrieves the next move from a player.
+     * @param player Pointer to the player whose move is being requested.
+     * @return A pointer to a new `Move<char>` object representing the player's action.
+     */
+    virtual Move<char>* get_move(Player<char>* player);
+};
 
 /**
  * @class X_O_Board
@@ -23,11 +59,13 @@ using namespace std;
  *
  * @see Board
  */
-class X_O_Board : public Board<char> {
+class X_O_Board : public Board<char> , XO_UI{
 private:
     char blank_symbol = '.'; ///< Character used to represent an empty cell on the board.
 
+
 public:
+
     /**
      * @brief Default constructor that initializes a 3x3 X-O board.
      */
@@ -75,39 +113,10 @@ public:
  * @brief User Interface class for the X-O (Tic-Tac-Toe) game.
  *
  * Inherits from the generic `UI<char>` base class and provides
- * X-O–specific functionality for player setup and move input.
+ * X-Oï¿½specific functionality for player setup and move input.
  *
  * @see UI
  */
-class XO_UI : public UI<char> {
-public:
-    /**
-     * @brief Constructs an XO_UI object.
-     *
-     * Initializes the base `UI<char>` class with the welcome message "FCAI X-O".
-     */
-    XO_UI();
 
-    /**
-     * @brief Destructor for XO_UI.
-     */
-    ~XO_UI() {};
-
-    /**
-     * @brief Creates a player of the specified type.
-     * @param name Name of the player.
-     * @param symbol Character symbol ('X' or 'O') assigned to the player.
-     * @param type The type of the player (Human or Computer).
-     * @return Pointer to the newly created Player<char> instance.
-     */
-    Player<char>* create_player(string& name, char symbol, PlayerType type);
-
-    /**
-     * @brief Retrieves the next move from a player.
-     * @param player Pointer to the player whose move is being requested.
-     * @return A pointer to a new `Move<char>` object representing the player's action.
-     */
-    virtual Move<char>* get_move(Player<char>* player);
-};
 
 #endif // XO_CLASSES_H
