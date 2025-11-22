@@ -77,7 +77,7 @@ public:
      * @return true if the move is valid and successfully applied, false otherwise.
      */
     bool update_board(Move<char>* move);
-
+    bool is_valid_move(int ox, int oy, int nx, int ny) ;
     /**
      * @brief Checks if the given player has won the game.
      * @param player Pointer to the player being checked.

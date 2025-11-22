@@ -18,7 +18,9 @@ X_O_Board::X_O_Board() : Board(3, 3) {
         for (auto& cell : row)
             cell = blank_symbol;
 }
-
+bool X_O_Board::is_valid_move(int ox, int oy, int nx, int ny) {
+    return true;
+}
 bool X_O_Board::update_board(Move<char>* move) {
     int x = move->get_x();
     int y = move->get_y();
@@ -32,6 +34,8 @@ bool X_O_Board::update_board(Move<char>* move) {
         qy.pop();
         n_moves--;
     }
+
+
     // Validate move and apply if valid
     if (!(x < 0 || x >= rows || y < 0 || y >= columns) &&
         (board[x][y] == blank_symbol || mark == 0)) {
