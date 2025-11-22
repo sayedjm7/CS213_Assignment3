@@ -62,7 +62,9 @@ public:
      * @return true if the move is valid and applied, false otherwise.
      */
     virtual bool update_board(Move<T>* move) = 0;
-
+    virtual bool is_valid_move(int ox, int oy, int nx, int ny) {
+        return false;
+    } ;
     /** @brief Check if a player has won. */
     virtual bool is_win(Player<T>*) = 0;
 
@@ -126,7 +128,7 @@ class Player {
 protected:
     string name;         ///< Player name
     PlayerType type;     ///< Player type (e.g., HUMAN or COMPUTER)
-    T symbol;            ///< Player’s symbol on board
+    T symbol;            ///< Playerï¿½s symbol on board
     Board<T>* boardPtr;  ///< Pointer to the game board
 
 public:
