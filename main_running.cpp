@@ -8,6 +8,8 @@
 #include <vector>
 #include <memory>
 #include <cstdlib>
+#include "SUS_game.h"
+
 using namespace std;
 
 enum class games {
@@ -44,10 +46,29 @@ void FourByFour() {
     delete[] players;
 
 }
+
+void SUS() {
+    srand(static_cast<unsigned int>(time(0)));
+
+    SUS_UI ui;
+    Player<char>** players = ui.setup_players();
+    sus_game_board board;
+
+    GameManager<char> manager(&board, players, &ui);
+    manager.run();
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
+    delete[] players;
+}
+
+
 void ava() {
     cout << "Options\n"
          << "1. Infinity\n"
-         << "2. FourByFour\n";
+         << "2. FourByFour\n"
+         << "3. SUS\n";
+
 }
 void start() {
     cout << "Welcome in gamer place\n";
@@ -64,6 +85,9 @@ int main() {
             break;
         case 2:
             FourByFour();
+            break;
+        case 3:
+            SUS();
             break;
     }
 
