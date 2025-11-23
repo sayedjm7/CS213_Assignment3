@@ -61,6 +61,8 @@ void SUS() {
     }
     delete[] players;
 }
+
+
 void ava() {
     cout << "Options\n"
          << "1. Infinity\n"
