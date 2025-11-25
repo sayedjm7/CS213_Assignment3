@@ -9,6 +9,7 @@
 #include <memory>
 #include <cstdlib>
 #include "SUS_game.h"
+#include "Obstacles_game.h"
 #include "Inverse_XO_Classes.h"
 #include"Numerical Tic-Tac-Toe.h"
 
@@ -90,6 +91,19 @@ void Numerical_Tic_Tac_Toe() {
     delete[] players;
 }
 
+void Obstacle_game(){
+  srand(static_cast<unsigned int>(time(0)));
+      obstacle_ui ui;
+      Player<char>** players = ui.setup_players();
+      obstacle_board board;
+
+      GameManager<char> manager(&board, players, &ui);
+      manager.run();
+
+      for (int i = 0; i < 2; ++i) {
+          delete players[i];
+}
+
 void ava() {
     cout << "Options\n"
          << "1. Infinity\n"
@@ -101,9 +115,11 @@ void ava() {
 }
 void start() {
     cout << "Welcome in gamer place\n";
+
 }
 int main() {
 
+ 
     start();
     ava();
     int choice;
@@ -118,12 +134,15 @@ int main() {
         case 3:
             SUS();
             break;
-		case 4:
-			Misere_Tic_Tac_Toe();
-			break;
-		case 5:
-			Numerical_Tic_Tac_Toe();
-            break;
+        case 4:
+          Misere_Tic_Tac_Toe();
+          break;
+        case 5:
+          Numerical_Tic_Tac_Toe();
+                break;
+        case 6:
+            Obstacle_game();
+            breake;
     }
 
 }
