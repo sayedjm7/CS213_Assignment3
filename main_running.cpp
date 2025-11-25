@@ -9,6 +9,7 @@
 #include <memory>
 #include <cstdlib>
 #include "SUS_game.h"
+#include "Obstacles_game.h"
 
 using namespace std;
 
@@ -72,23 +73,37 @@ void ava() {
 }
 void start() {
     cout << "Welcome in gamer place\n";
+
 }
 int main() {
 
-    start();
-    ava();
-    int choice;
-    cin >> choice;
-    switch (choice) {
-        case 1:
-            Inf();
-            break;
-        case 2:
-            FourByFour();
-            break;
-        case 3:
-            SUS();
-            break;
+    // start();
+    // ava();
+    // int choice;
+    // cin >> choice;
+    // switch (choice) {
+    //     case 1:
+    //         Inf();
+    //         break;
+    //     case 2:
+    //         FourByFour();
+    //         break;
+    //     case 3:
+    //         SUS();
+    //         break;
+    // }
+    srand(static_cast<unsigned int>(time(0)));
+    obstacle_ui ui;
+    Player<char>** players = ui.setup_players();
+    obstacle_board board;
+
+    GameManager<char> manager(&board, players, &ui);
+    manager.run();
+
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
     }
+    delete[] players;
+
 
 }
