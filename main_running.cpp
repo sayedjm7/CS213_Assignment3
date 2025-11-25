@@ -10,6 +10,10 @@
 #include <cstdlib>
 #include "SUS_game.h"
 #include "Obstacles_game.h"
+#include "Inverse_XO_Classes.h"
+#include"Numerical Tic-Tac-Toe.h"
+
+
 
 using namespace std;
 
@@ -62,13 +66,51 @@ void SUS() {
     }
     delete[] players;
 }
+void Misere_Tic_Tac_Toe() {
+    srand(static_cast<unsigned int>(time(0)));
+    Inverse_XO_UI ui;
+    Player<char>** players = ui.setup_players();
+    Inverse_XO_Board board;
+    GameManager<char> manager(&board, players, &ui);
+    manager.run();
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
+    delete[] players;
+}
+void Numerical_Tic_Tac_Toe() {
+    srand(static_cast<unsigned int>(time(0)));
+    Numaric_XO_UI ui;
+    Player<char>** players = ui.setup_players();
+	Numaric_XO_Board board;
+    GameManager<char> manager(&board, players, &ui);
+    manager.run();
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
+    delete[] players;
+}
 
+void Obstacle_game(){
+  srand(static_cast<unsigned int>(time(0)));
+      obstacle_ui ui;
+      Player<char>** players = ui.setup_players();
+      obstacle_board board;
+
+      GameManager<char> manager(&board, players, &ui);
+      manager.run();
+
+      for (int i = 0; i < 2; ++i) {
+          delete players[i];
+}
 
 void ava() {
     cout << "Options\n"
          << "1. Infinity\n"
          << "2. FourByFour\n"
-         << "3. SUS\n";
+         << "3. SUS\n"
+         <<"4. Misère Tic Tac Toe\n"
+         <<"5.Numerical Tic-Tac-Toe\n";
 
 }
 void start() {
@@ -77,33 +119,30 @@ void start() {
 }
 int main() {
 
-    // start();
-    // ava();
-    // int choice;
-    // cin >> choice;
-    // switch (choice) {
-    //     case 1:
-    //         Inf();
-    //         break;
-    //     case 2:
-    //         FourByFour();
-    //         break;
-    //     case 3:
-    //         SUS();
-    //         break;
-    // }
-    srand(static_cast<unsigned int>(time(0)));
-    obstacle_ui ui;
-    Player<char>** players = ui.setup_players();
-    obstacle_board board;
-
-    GameManager<char> manager(&board, players, &ui);
-    manager.run();
-
-    for (int i = 0; i < 2; ++i) {
-        delete players[i];
+ 
+    start();
+    ava();
+    int choice;
+    cin >> choice;
+    switch (choice) {
+        case 1:
+            Inf();
+            break;
+        case 2:
+            FourByFour();
+            break;
+        case 3:
+            SUS();
+            break;
+        case 4:
+          Misere_Tic_Tac_Toe();
+          break;
+        case 5:
+          Numerical_Tic_Tac_Toe();
+                break;
+        case 6:
+            Obstacle_game();
+            breake;
     }
-    delete[] players;
-
 
 }
