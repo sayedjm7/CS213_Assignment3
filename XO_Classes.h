@@ -18,8 +18,7 @@ using namespace std;
 class XO_UI : public UI<char> {
 public:
 
-    queue<int> qx;
-    queue<int> qy;
+
     /**
      * @brief Constructs an XO_UI object.
      *
@@ -46,6 +45,7 @@ public:
      * @param player Pointer to the player whose move is being requested.
      * @return A pointer to a new `Move<char>` object representing the player's action.
      */
+    void display_welcome_message();
     virtual Move<char>* get_move(Player<char>* player);
 };
 
@@ -59,10 +59,11 @@ public:
  *
  * @see Board
  */
-class X_O_Board : public Board<char> , XO_UI{
+class X_O_Board : public Board<char> {
 private:
     char blank_symbol = '.'; ///< Character used to represent an empty cell on the board.
-
+    queue<int> qx;
+    queue<int> qy;
 
 public:
 
@@ -108,6 +109,15 @@ public:
 };
 
 
+/**
+ * @class XO_UI
+ * @brief User Interface class for the X-O (Tic-Tac-Toe) game.
+ *
+ * Inherits from the generic `UI<char>` base class and provides
+ * X-O�specific functionality for player setup and move input.
+ *
+ * @see UI
+ */
 
 
 #endif // XO_CLASSES_H

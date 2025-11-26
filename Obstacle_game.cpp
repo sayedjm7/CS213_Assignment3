@@ -179,13 +179,38 @@ bool obstacle_board::game_is_over(Player<char>* player) {
 
 //--------------------------------------- XO_UI Implementation
 
-obstacle_ui::obstacle_ui() : UI<char>("Weclome to FCAI X-O Game by Dr El-Ramly", 3) {}
+obstacle_ui::obstacle_ui() : UI<char>("", 3) {
+    display_welcome_message();
+}
+
+void obstacle_ui::display_welcome_message() {
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|            OBSTACLE GAME             |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|     Welcome to the Obstacle Race!    |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|              GAME RULES:             |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "| * Board: 6x6 grid                    |\n";
+    cout << "    " << "| * Players: X and O                   |\n";
+    cout << "    " << "| * Special: After each round,         |\n";
+    cout << "    " << "|   2 obstacles (#) are randomly added |\n";
+    cout << "    " << "| * Obstacles block both players       |\n";
+    cout << "    " << "| * Win: 4 in row/column/diagonal      |\n";
+    cout << "    " << "| * Draw: Board full with no winner    |\n";
+    cout << "    " << "|--------------------------------------|\n\n";
+}
 
 Player<char>* obstacle_ui::create_player(string& name, char symbol, PlayerType type) {
     // Create player based on type
-    cout << "Creating " << (type == PlayerType::HUMAN ? "human" : "computer")
-        << " player: " << name << " (" << symbol << ")\n";
-
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|             PLAYER CREATED           |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|  Type:    " << setw(25) << left
+         << (type == PlayerType::HUMAN ? "Human" : "Computer") << "|\n";
+    cout << "    " << "|  Name:    " << setw(25) << left << name << "|\n";
+    cout << "    " << "|  Symbol:  " << setw(25) << left << symbol << "|\n";
+    cout << "    " << "|--------------------------------------|\n\n\n";
     return new Player<char>(name, symbol, type);
 }
 
@@ -193,8 +218,13 @@ Move<char>* obstacle_ui::get_move(Player<char>* player) {
     int x, y;
 
     if (player->get_type() == PlayerType::HUMAN) {
-        cout << "\nPlease enter your move x and y (0 to 2): ";
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "|              " << player->get_name() << "'s TURN             |\n";
+        cout << "    " << "|               Symbol: " << player->get_symbol() << "              |\n";
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "| Enter your move (row col 0-5): ";
         cin >> x >> y;
+        cout << "    " << "|--------------------------------------|\n";
     }
     else if (player->get_type() == PlayerType::COMPUTER) {
         x = rand() % player->get_board_ptr()->get_rows();

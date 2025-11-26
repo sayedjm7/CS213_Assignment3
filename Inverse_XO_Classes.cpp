@@ -66,7 +66,30 @@ bool Inverse_XO_Board::game_is_over(Player<char>* player) {
 //                     UI Implementation
 //======================================================
 
-Inverse_XO_UI::Inverse_XO_UI() : UI<char>("Inverse Tic-Tac-Toe Game", 3) {}
+Inverse_XO_UI::Inverse_XO_UI() : UI<char>("", 3) {
+    display_welcome_message();
+}
+
+void Inverse_XO_UI::display_welcome_message() {
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|          MISERE TIC-TAC-TOE          |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|        Welcome to Inverse XO!        |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|               GAME RULES:            |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "| * Objective: AVOID making 3 in a row |\n";
+    cout << "    " << "| * Players: X and O                   |\n";
+    cout << "    " << "| * You LOSE if you complete:          |\n";
+    cout << "    " << "|   - 3 of your symbols in a row       |\n";
+    cout << "    " << "|   - 3 of your symbols in a column    |\n";
+    cout << "    " << "|   - 3 of your symbols diagonally     |\n";
+    cout << "    " << "| * Draw if board fills with no        |\n";
+    cout << "    " << "|     3-in-a-row                       |\n";
+    cout << "    " << "|--------------------------------------|\n\n";
+
+}
+
 
 Player<char>* Inverse_XO_UI::create_player(string& name, char symbol, PlayerType type) {
     return new Player<char>(name, symbol, type);
@@ -76,8 +99,13 @@ Move<char>* Inverse_XO_UI::get_move(Player<char>* player) {
     int x, y;
 
     if (player->get_type() == PlayerType::HUMAN) {
-        cout << "\n"<<"Please enter your move x and y (0 to 2): ";
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "|             " << player->get_name() << "'s TURN              |\n";
+        cout << "    " << "|               Symbol: " << player->get_symbol() << "              |\n";
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "| Enter your move (row col 0-2): ";
         cin >> x >> y;
+        cout << "    " << "|--------------------------------------|\n";
     }
     else if (player->get_type() == PlayerType::COMPUTER) {
         x = rand() % player->get_board_ptr()->get_rows();

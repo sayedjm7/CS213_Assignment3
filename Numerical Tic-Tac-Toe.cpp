@@ -95,39 +95,71 @@ bool Numaric_XO_Board::game_is_over(Player<int>* player) {
 //------------------------------------------
 // UI
 //------------------------------------------
-Numaric_XO_UI::Numaric_XO_UI() : UI<int>("Welcome to Numerical Tic-Tac-Toe!", 2) {
-    display_message( "Fuck You");
+Numaric_XO_UI::Numaric_XO_UI() : UI<int>("", 2) {
+    display_welcome_message();
 }
 
+void Numaric_XO_UI::display_welcome_message() {
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|        NUMERICAL TIC-TAC-TOE         |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|      Welcome to Number Battle!       |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|              GAME RULES:             |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "| * Players:                           |\n";
+    cout << "    " << "|   - Player 1: Uses odd numbers       |\n";
+    cout << "    " << "|   - Player 2: Uses even numbers      |\n";
+    cout << "    " << "| * Numbers: 1,3,5,7,9 (odd)           |\n";
+    cout << "    " << "| * Numbers: 2,4,6,8 (even)            |\n";
+    cout << "    " << "| * Objective: Get 3 numbers that      |\n";
+    cout << "    " << "|   sum to 15 in a row/column/diagonal |\n";
+    cout << "    " << "|--------------------------------------|\n\n";
+}
 
 Player<int>* Numaric_XO_UI::create_player(string& name, int symbol, PlayerType type) {
+    string playerType = (type == PlayerType::HUMAN ? "Human" : "Computer");
+    string numberType = (symbol % 2 == 1 ? "Odd Numbers" : "Even Numbers");
+
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|             PLAYER CREATED           |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|  Type:    " << setw(25) << left << playerType << "|\n";
+    cout << "    " << "|  Name:    " << setw(25) << left << name << "|\n";
+    cout << "    " << "|  Role:    " << setw(25) << left << numberType << "|\n";
+    cout << "    " << "|--------------------------------------|\n";
     return new Player<int>(name, symbol, type);
+
 }
 
-void Numaric_XO_UI::display_message(string m) {
-    cout << m;
-}
 
 Move<int>* Numaric_XO_UI::get_move(Player<int>* player) {
     int x, y, value;
     if (player->get_type() == PlayerType::HUMAN) {
-        cout << player->get_name() << "'s turn. Enter row (0-2), column (0-2), and number to place: ";
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "|           " << player->get_name() << "'s TURN                |\n";
+        cout << "    " << "|--------------------------------------|\n";
         if (player->get_symbol() % 2 == 1) {
-            cout << "You can choose from:\n";
+            cout << "    " << "| Available odd numbers: ";
             for (int i = 0; i < oddvector.size(); i++) {
                 cout << oddvector[i] << " ";
             }
-            cout << "\n";
+            cout << "     |\n";
         }
         else{
-            cout << "You can choose from:\n";
+            cout << "    " << "| Available even numbers: ";
             for (int i = 0; i < oddvector.size(); i++) {
                 cout << evenvector[i] << " ";
             }
-            cout << "\n";
+            cout << "     |\n";
         }
+        cout << "    " << "| Enter row (0-2), column (0-2):          ";
+        cin >> x >> y;
 
-        cin >> x >> y>>value;
+         cout << "    " << "| Enter the value:          ";
+        cin >> value;
+
+        cout << "    " << "|--------------------------------------|\n";
     }
     else if (player->get_type() == PlayerType::COMPUTER) {
         x = rand() % player->get_board_ptr()->get_rows();
@@ -150,6 +182,7 @@ Player<int>** Numaric_XO_UI::setup_players() {
     string nameEven = get_player_name("Even Numbers Player");
     PlayerType typeEven = get_player_type_choice("Even Numbers Player", type_options);
     players[1] = create_player(nameEven, 2, typeEven);
+    cout << "    " << "|--------------------------------------|\n";
 
     return players;
 }

@@ -24,33 +24,29 @@ bool X_O_Board::is_valid_move(int ox, int oy, int nx, int ny) {
 bool X_O_Board::update_board(Move<char>* move) {
     int x = move->get_x();
     int y = move->get_y();
+    char mark = move->get_symbol();
+
+    n_moves++;
+    board[x][y] = toupper(mark);
+
 
     qx.push(x);
     qy.push(y);
-    char mark = move->get_symbol();
+
+    // 00(X)  01(O)  10(X)  20(O)  02(X)  21(O)
     if (qx.size() > 6) {
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "|        OLDEST MOVE VANISHED!        |\n";
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "| Position (" << qx.front() << "," << qy.front() << ") disappeared |\n";
+        cout << "    " << "|--------------------------------------|\n";
         board[qx.front()][qy.front()] = blank_symbol;
         qx.pop();
         qy.pop();
         n_moves--;
     }
 
-
-    // Validate move and apply if valid
-    if (!(x < 0 || x >= rows || y < 0 || y >= columns) &&
-        (board[x][y] == blank_symbol || mark == 0)) {
-
-        if (mark == 0) { // Undo move
-            n_moves--;
-            board[x][y] = blank_symbol;
-        }
-        else {         // Apply move
-            n_moves++;
-            board[x][y] = toupper(mark);
-        }
-        return true;
-    }
-    return false;
+    return true;
 }
 
 bool X_O_Board::is_win(Player<char>* player) {
@@ -83,29 +79,93 @@ bool X_O_Board::game_is_over(Player<char>* player) {
 
 //--------------------------------------- XO_UI Implementation
 
-XO_UI::XO_UI() : UI<char>("Weclome to FCAI X-O Game by Dr El-Ramly", 3) {}
+XO_UI::XO_UI() : UI<char>("", 3) {
+    display_welcome_message();
+
+}
+void XO_UI::display_welcome_message() {
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|          INFINITY TIC-TAC-TOE        |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|    Welcome to the Infinite Game!     |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|              GAME RULES:             |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "| * Players: X and O                   |\n";
+    cout << "    " << "| * Special: After 3 moves, the        |\n";
+    cout << "    " << "|   oldest move disappears!            |\n";
+    cout << "    " << "| * Win: Get 3 in a row before any     |\n";
+    cout << "    " << "|   of your marks vanish               |\n";
+    cout << "    " << "| * Draw: Board cycles with no winner  |\n";
+    cout << "    " << "|--------------------------------------|\n\n";
+}
 
 Player<char>* XO_UI::create_player(string& name, char symbol, PlayerType type) {
     // Create player based on type
-    cout << "Creating " << (type == PlayerType::HUMAN ? "human" : "computer")
-        << " player: " << name << " (" << symbol << ")\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|             PLAYER CREATED           |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|  Type:    " << setw(25) << left
+         << (type == PlayerType::HUMAN ? "Human" : "Computer") << "|\n";
+    cout << "    " << "|  Name:    " << setw(25) << left << name << "|\n";
+    cout << "    " << "|  Symbol:  " << setw(25) << left << symbol << "|\n";
+    cout << "    " << "|--------------------------------------|\n";
 
     return new Player<char>(name, symbol, type);
 }
 
 Move<char>* XO_UI::get_move(Player<char>* player) {
     int x, y;
-    
+    Board<char>* game_board = player->get_board_ptr();
+    const char sym = player->get_symbol();
+    vector<vector<char>> current_board = game_board->get_board_matrix();
+
     if (player->get_type() == PlayerType::HUMAN) {
-        cout << "\nPlease enter your move x and y (0 to 2): ";
-        cin >> x >> y;
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "|              " << player->get_name() << "'s TURN             |\n";
+        cout << "    " << "|               Symbol: " << player->get_symbol() << "              |\n";
+        cout << "    " << "|--------------------------------------|\n";
+        // cin >> x >> y;
+        // start2:
+        //     while (x < 0 || x >= 3 || y < 0 || y >= 3) {
+        //         cout << "Invalid: out of shape\n" << "Enter position is shape: ";
+        //         cin >> x >> y;
+        //         if (current_board[x][y] != '.') {
+        //             goto start1;
+        //         }
+        //     }
+        // start1:
+        //     while (current_board[x][y] != '.') {
+        //         cout << "Enter empty position:";
+        //         cin >> x >> y;
+        //         if (x < 0 || x >= 3 || y < 0 || y >= 3) goto start2;
+        //     }
+        do {
+            cout << "    " << "| Enter your move (row col 0-2): ";
+            cin >> x >> y;
 
+            if (x < 0 || x >= 3 || y < 0 || y >= 3) {
+                cout << "    " << "|--------------------------------------|\n";
+                cout << "    " << "|    Invalid: Out of bounds!           |\n";
+                cout << "    " << "|--------------------------------------|\n";
+            }
+            else if (current_board[x][y] != '.') {
+                cout << "    " << "|--------------------------------------|\n";
+                cout << "    " << "|    Position occupied! Try again.     |\n";
+                cout << "    " << "|--------------------------------------|\n";
+            }
+        } while (x < 0 || x >= 3 || y < 0 || y >= 3 || current_board[x][y] != '.');
 
+        cout << "    " << "|    Move accepted: (" << x << "," << y << ")             |\n";
+        cout << "    " << "|--------------------------------------|\n";
     }
     else if (player->get_type() == PlayerType::COMPUTER) {
-        x = rand() % player->get_board_ptr()->get_rows();
-        y = rand() % player->get_board_ptr()->get_columns();
 
+        do {
+            x = rand() % player->get_board_ptr()->get_rows();
+            y = rand() % player->get_board_ptr()->get_columns();
+        }
+        while (current_board[x][y] != '.');
     }
     return new Move<char>(x, y, player->get_symbol());
 }

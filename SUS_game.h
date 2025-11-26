@@ -38,7 +38,7 @@ class SUS_UI : public UI<char> {
 public:
     SUS_UI();
     ~SUS_UI() override {};
-
+    void display_welcome_message();
     Player<char> *create_player(string &name, char symbol, PlayerType type);
 
     Move<char>* get_move(Player<char>* player) override;

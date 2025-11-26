@@ -5,13 +5,11 @@
 #include <cctype>
 #include <ctime>
 #include <string>
-#include <vector>
-#include <memory>
-#include <cstdlib>
 #include "SUS_game.h"
 #include "Obstacles_game.h"
 #include "Inverse_XO_Classes.h"
 #include"Numerical Tic-Tac-Toe.h"
+#include "GameEight.h"
 
 
 
@@ -22,14 +20,29 @@ enum class games {
     FourByFour
 };
 
-void Inf () {
-    srand(static_cast<unsigned int>(time(0)));  // Seed the random number generator
-    UI<char>* game_ui = new XO_UI();
-    Board<char>* xo_board = new X_O_Board();
-    Player<char>** players = game_ui->setup_players();
-    GameManager<char> x_o_game(xo_board, players, game_ui);
-    x_o_game.run();
-    delete xo_board;
+
+void SUS() {
+    srand(static_cast<unsigned int>(time(0)));
+
+    SUS_UI ui;
+    Player<char>** players = ui.setup_players();
+    sus_game_board board;
+
+    GameManager<char> manager(&board, players, &ui);
+    manager.run();
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
+    delete[] players;
+}
+
+void Misere_Tic_Tac_Toe() {
+    srand(static_cast<unsigned int>(time(0)));
+    Inverse_XO_UI ui;
+    Player<char>** players = ui.setup_players();
+    Inverse_XO_Board board;
+    GameManager<char> manager(&board, players, &ui);
+    manager.run();
     for (int i = 0; i < 2; ++i) {
         delete players[i];
     }
@@ -52,12 +65,11 @@ void FourByFour() {
 
 }
 
-void SUS() {
+void GameEight() {
     srand(static_cast<unsigned int>(time(0)));
-
-    SUS_UI ui;
+    Pry_UI ui;
     Player<char>** players = ui.setup_players();
-    sus_game_board board;
+    Pry_Board board;
 
     GameManager<char> manager(&board, players, &ui);
     manager.run();
@@ -65,25 +77,17 @@ void SUS() {
         delete players[i];
     }
     delete[] players;
-}
-void Misere_Tic_Tac_Toe() {
-    srand(static_cast<unsigned int>(time(0)));
-    Inverse_XO_UI ui;
-    Player<char>** players = ui.setup_players();
-    Inverse_XO_Board board;
-    GameManager<char> manager(&board, players, &ui);
-    manager.run();
-    for (int i = 0; i < 2; ++i) {
-        delete players[i];
-    }
-    delete[] players;
-}
+    // cout << "DONE COMMENT\n";
+
+
+ }
+
 void Numerical_Tic_Tac_Toe() {
     srand(static_cast<unsigned int>(time(0)));
     Numaric_XO_UI ui;
-    Player<char>** players = ui.setup_players();
+    Player<int>** players = ui.setup_players();
 	Numaric_XO_Board board;
-    GameManager<char> manager(&board, players, &ui);
+    GameManager<int> manager(&board, players, &ui);
     manager.run();
     for (int i = 0; i < 2; ++i) {
         delete players[i];
@@ -102,47 +106,74 @@ void Obstacle_game(){
 
       for (int i = 0; i < 2; ++i) {
           delete players[i];
+      }
+    delete[] players;
 }
+
+void Inf () {
+    srand(static_cast<unsigned int>(time(0)));  // Seed the random number generator
+    UI<char>* game_ui = new XO_UI();
+    Board<char>* xo_board = new X_O_Board();
+    Player<char>** players = game_ui->setup_players();
+    GameManager<char> x_o_game(xo_board, players, game_ui);
+    x_o_game.run();
+    delete xo_board;
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
+    delete[] players;
+}
+
+
 
 void ava() {
-    cout << "Options\n"
-         << "1. Infinity\n"
-         << "2. FourByFour\n"
-         << "3. SUS\n"
-         <<"4. Misère Tic Tac Toe\n"
-         <<"5.Numerical Tic-Tac-Toe\n";
-
+    cout << "    " << "|--------------------------------------|\n" ;
+    cout << "    " << "|            GAME SELECTION            |\n" ;
+    cout << "    " << "|--------------------------------------|\n" ;
+    cout << "    " << "|  1.      SUS Game                    |\n" ;
+    cout << "    " << "|  2.      Misere Tic-Tac-Toe          |\n" ;
+    cout << "    " << "|  3.      4x4 Tic-Tac-Toe             |\n" ;
+    cout << "    " << "|  4.      Pyramid Game                |\n" ;
+    cout << "    " << "|  5.      Numerical Tic-Tac-Toe       |\n" ;
+    cout << "    " << "|  6.      Obstacle Game               |\n" ;
+    cout << "    " << "|  7.      Infinity Tic-Tac-Toe        |\n" ;
+    cout << "    " << "|--------------------------------------|\n" ;
+    cout << "    " << "Enter your choice (1-7): ";
 }
+
 void start() {
-    cout << "Welcome in gamer place\n";
-
+    cout << string(49, '=') << "\n";
+    cout << "         Welcome to the Gaming Paradise!   " << "\n";
+    cout << string(49, '=') << "\n";
 }
+
+
 int main() {
-
- 
-    start();
-    ava();
-    int choice;
-    cin >> choice;
-    switch (choice) {
-        case 1:
-            Inf();
-            break;
-        case 2:
-            FourByFour();
-            break;
-        case 3:
-            SUS();
-            break;
-        case 4:
-          Misere_Tic_Tac_Toe();
-          break;
-        case 5:
-          Numerical_Tic_Tac_Toe();
-                break;
-        case 6:
-            Obstacle_game();
-            breake;
-    }
-
+          start();
+          ava();
+          int choice;
+          cin >> choice;
+          switch (choice) {
+              case 1:
+                  SUS();
+                  break;
+              case 2:
+                  Misere_Tic_Tac_Toe();
+                  break;
+              case 3:
+                  FourByFour();
+                  break;
+              case 4:
+                  GameEight();
+                  break;
+              case 5:
+                  Numerical_Tic_Tac_Toe();
+                  break;
+              case 6:
+                  Obstacle_game();
+                  break;
+              case 7:
+                  Inf();
+                  break;
+          }
 }
