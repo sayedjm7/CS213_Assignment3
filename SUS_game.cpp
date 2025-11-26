@@ -13,11 +13,33 @@ sus_game_board::sus_game_board() : Board(3, 3) {
 
 
 sus_game_board::~sus_game_board() {
-    cout << p1_score << " " << p2_score << endl;
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|              FINAL SCORE             |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|  Player S: " << setw(25) << left << p1_score << " |\n";
+    cout << "    " << "|  Player U: " << setw(25) << left << p2_score << " |\n";
+    cout << "    " << "|--------------------------------------|\n";}
+
+SUS_UI::SUS_UI() : UI<char>("", 3) {
+    display_welcome_message();
 }
 
-SUS_UI::SUS_UI() : UI<char>("Weclome to FCAI X-O Game by Dr El-Ramly SUS", 3) {}
+void SUS_UI::display_welcome_message() {
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|               SUS GAME               |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|            Welcome to SUS!           |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|              GAME RULES:             |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "| * Players:                           |\n";
+    cout << "    " << "|   - Player 1: Places 'S' only        |\n";
+    cout << "    " << "|   - Player 2: Places 'U' only        |\n";
+    cout << "    " << "| * Scoring: 1 point per S-U-S sequence|\n";
+    cout << "    " << "| * Winner: Most S-U-S sequences       |\n";
+    cout << "    " << "|--------------------------------------|\n\n\n";
 
+}
 bool sus_game_board::update_board(Move<char> *move) {
     int x = move->get_x();
     int y = move->get_y();
@@ -90,8 +112,15 @@ void sus_game_board::count_sus_number(int x, int y, char sym) { // calculate the
 
 Player<char>* SUS_UI::create_player(string& name, char symbol, PlayerType type) {
     // Create player based on type
-    cout << "Creating " << (type == PlayerType::HUMAN ? "human" : "computer")
-        << " player: " << name << " (" << symbol << ")\n";
+
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|             PLAYER CREATED           |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|  Type:    " << setw(25) << left
+         << (type == PlayerType::HUMAN ? "Human" : "Computer") << " |\n";
+    cout << "    " << "|  Name:    " << setw(25) << left << name << " |\n";
+    cout << "    " << "|  Symbol:  " << setw(25) << left << symbol << " |\n";
+    cout << "    " << "|--------------------------------------|\n\n\n";
 
     return new Player<char>(name, symbol, type);
 }
@@ -100,7 +129,12 @@ Move<char> *SUS_UI::get_move(Player<char> *player) {
     int x, y;
 
     if (player->get_type() == PlayerType::HUMAN) {
-        cout << "\nPlease enter your move x and y (0 to 2): ";
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "|           " << player->get_name() << "'s TURN               |\n";
+        cout << "    " << "|               Symbol: " << player->get_symbol() << "              |\n";
+        cout << "    " << "|--------------------------------------|\n";
+
+        cout << "    " << "| Enter your move (row col 0-2): ";
         cin >> x >> y;
 
 
@@ -145,123 +179,6 @@ bool sus_game_board::game_is_over(Player<char>* player) {
                 return false;
     return true;
 }
-
-
-
-
-// #include "BoardGame_Classes.h"
-// #include "SUS_game.h"
-// #include <queue>
-// #include <cctype>
-// #include <iostream>
-// using namespace std;
-//
-// // Queue to track the order of moves
-// queue<pair<int,int>> move_history;
-//
-// sus_game_board::sus_game_board() : Board(3, 3) {
-//     for (auto& row : board)
-//         for (auto& cell : row)
-//             cell = blank_symbol;
-//     n_moves = 0;
-// }
-//
-// // Apply move, remove oldest if > 3 moves
-// bool sus_game_board::update_board(Move<char> *move) {
-//     int x = move->get_x();
-//     int y = move->get_y();
-//     char mark = toupper(move->get_symbol());
-//
-//     // Check valid coordinates
-//     if (x < 0 || x >= rows || y < 0 || y >= columns)
-//         return false;
-//
-//     // Check if the cell is empty
-//     if (board[x][y] != blank_symbol)
-//         return false;
-//
-//     // Apply move
-//     board[x][y] = mark;
-//     n_moves++;
-//
-//     return true;
-// }
-//
-// // Count the number of SUS sequences
-// int sus_game_board::count_sus_number() {
-//     auto sus_completed = [&](char a, char b, char c) {
-//         return (a == 'S' && b == 'U' && c == 'S');
-//     };
-//     int num = 0;
-//
-//     // Horizontal
-//     for (int i = 0; i < 3; i++)
-//         if (sus_completed(board[i][0], board[i][1], board[i][2]))
-//             num++;
-//
-//     // Vertical
-//     for (int i = 0; i < 3; i++)
-//         if (sus_completed(board[0][i], board[1][i], board[2][i]))
-//             num++;
-//
-//     // Diagonal 1
-//     if (sus_completed(board[0][0], board[1][1], board[2][2]))
-//         num++;
-//
-//     // Diagonal 2
-//     if (sus_completed(board[0][2], board[1][1], board[2][0]))
-//         num++;
-//
-//     return num;
-// }
-//
-// // Win if any SUS sequence exists
-// bool sus_game_board::is_win(Player<char>* player) {
-//     return count_sus_number() > 0;
-// }
-//
-// // Draw if all cells are filled but no SUS
-// bool sus_game_board::is_draw(Player<char>* player) {
-//     for (int i = 0; i < rows; i++)
-//         for (int j = 0; j < columns; j++)
-//             if (board[i][j] == blank_symbol)
-//                 return false;
-//     return !is_win(player);
-// }
-//
-// // Game is over if win or draw
-// bool sus_game_board::game_is_over(Player<char>* player) {
-//     return is_win(player) || is_draw(player);
-// }
-//
-// // UI
-// SUS_UI::SUS_UI() : UI<char>("Welcome to FCAI SUS Game by Dr El-Ramly", 3) {}
-//
-// Player<char>* SUS_UI::create_player(string &name, char symbol, PlayerType type) {
-//     cout << "Creating " << (type == PlayerType::HUMAN ? "human" : "computer")
-//          << " player: " << name << " (" << symbol << ")\n";
-//     return new Player<char>(name, symbol, type);
-// }
-//
-// Move<char>* SUS_UI::get_move(Player<char>* player) {
-//     int x, y;
-//
-//     if (player->get_type() == PlayerType::HUMAN) {
-//         while (true) {
-//             cout << "\nEnter your move x and y (0-2): ";
-//             cin >> x >> y;
-//             if (x >= 0 && x < 3 && y >= 0 && y < 3)
-//                 break;
-//             cout << "Invalid input! Try again.\n";
-//         }
-//     } else { // Computer move
-//         x = rand() % 3;
-//         y = rand() % 3;
-//     }
-//
-//     return new Move<char>(x, y, player->get_symbol());
-// }
-
 
 
 

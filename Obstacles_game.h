@@ -14,17 +14,19 @@ public:
 
     Player<char>* create_player(string& name, char symbol, PlayerType type);
     virtual Move<char>* get_move(Player<char>* player);
+
+    void display_welcome_message();
+
 };
 
 
-class obstacle_board : public Board<char> , obstacle_ui{
+class obstacle_board : public Board<char>{
 private:
     char blank_symbol = '.';
 
 
 public:
     obstacle_board();
-
 
     bool update_board(Move<char>* move);
     bool is_valid_move(int ox, int oy, int nx, int ny) ;

@@ -172,8 +172,12 @@ protected:
      */
     string get_player_name(string player_label) {
         string name;
-        cout << "Enter " << player_label << " name: ";
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "|          PLAYER REGISTRATION         |\n";
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "| Enter " << player_label << " name: ";
         getline(cin >> ws, name);
+        cout << "    " << "|--------------------------------------|\n\n\n";
         return name;
     }
 
@@ -181,11 +185,21 @@ protected:
      * @brief Ask the user to choose the player type from a list.
      */
     PlayerType get_player_type_choice(string player_label, const vector<string>& options) {
-        cout << "Choose " << player_label << " type:\n";
-        for (size_t i = 0; i < options.size(); ++i)
-            cout << i + 1 << ". " << options[i] << "\n";
         int choice;
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "|         SELECT PLAYER TYPE           |\n";
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "| Choose " << player_label << " type:                |\n";
+        cout << "    " << "|--------------------------------------|\n";
+
+        for (size_t i = 0; i < options.size(); ++i){
+            cout << "    " << "| " << i + 1 << ". " << setw(33) << left << options[i] << " |\n";
+        }
+
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "| Enter choice: ";
         cin >> choice;
+        cout << "    " << "|--------------------------------------|\n\n\n";
         return (choice == 2) ? PlayerType::COMPUTER : PlayerType::HUMAN;
     }
 
@@ -202,7 +216,7 @@ public:
 
     /** @brief Display any message to the user. */
     void display_message(string message) { cout << message << "\n"; }
-
+    virtual void display_welcome_message() = 0;
     /**
      * @brief Ask the user (or AI) to make a move.
      */
@@ -221,7 +235,7 @@ public:
     /**
      * @brief Display the current board matrix in formatted form.
      */
-    void display_board_matrix(const vector<vector<T>>& matrix) const {
+    virtual void display_board_matrix(const vector<vector<T>>& matrix) const {
         if (matrix.empty() || matrix[0].empty()) return;
 
         int rows = matrix.size();
@@ -284,15 +298,37 @@ public:
                 ui->display_board_matrix(boardPtr->get_board_matrix());
 
                 if (boardPtr->is_win(currentPlayer)) {
-                    ui->display_message(currentPlayer->get_name() + " wins!");
+                    cout << "    " << "|--------------------------------------|\n";
+                    cout << "    " << "|                 VICTORY!             |\n";
+                    cout << "    " << "|--------------------------------------|\n";
+                    cout << "    " << "|  Winner: " << setw(26) << left << currentPlayer->get_name() << "|\n";
+                    cout << "    " << "|  Symbol: " << setw(26) << left << string(1, currentPlayer->get_symbol()) << "|\n";
+                    cout << "    " << "|                                      |\n";
+                    cout << "    " << "|             Congratulations!         |\n";
+                    cout << "    " << "|--------------------------------------|\n\n\n";
                     return;
                 }
+
                 if (boardPtr->is_lose(currentPlayer)) {
-                    ui->display_message(players[1 - i]->get_name() + " wins!");
+                    cout << "    " << "|--------------------------------------|\n";
+                    cout << "    " << "|                 VICTORY!             |\n";
+                    cout << "    " << "|--------------------------------------|\n";
+                    cout << "    " << "|  Winner: " << setw(26) << left << players[1 - i]->get_name() << "|\n";
+                    cout << "    " << "|  Symbol: " << setw(26) << left << string(1, players[1 - i]->get_symbol()) << "|\n";
+                    cout << "    " << "|                                      |\n";
+                    cout << "    " << "|             Congratulations!         |\n";
+                    cout << "    " << "|--------------------------------------|\n\n\n";
                     return;
                 }
+
                 if (boardPtr->is_draw(currentPlayer)) {
-                    ui->display_message("Draw!");
+                    cout << "    " << "|--------------------------------------|\n";
+                    cout << "    " << "|                 DRAW!                |\n";
+                    cout << "    " << "|--------------------------------------|\n";
+                    cout << "    " << "|         It's a tie! No winner.       |\n";
+                    cout << "    " << "|                                      |\n";
+                    cout << "    " << "|            Great game both!          |\n";
+                    cout << "    " << "|--------------------------------------|\n\n\n";
                     return;
                 }
             }

@@ -58,18 +58,30 @@ public:
 
 
         if (nx < 0 || nx >= 4 || ny < 0 || ny >= 4) {
-            cout << "Positon out of the board!\n";
+            cout << "    " << "|--------------------------------------|\n";
+            cout << "    " << "|             INVALID MOVE             |\n";
+            cout << "    " << "|--------------------------------------|\n";
+            cout << "    " << "|       Position out of the board!     |\n";
+            cout << "    " << "|--------------------------------------|\n";
             return false;
         }
 
         if (board[nx][ny] != blank_symbol ) {
 
-            cout << "Invalid position, Please select empty position.\n";
+            cout << "    " << "|--------------------------------------|\n";
+            cout << "    " << "|             INVALID MOVE             |\n";
+            cout << "    " << "|--------------------------------------|\n";
+            cout << "    " << "|      Please select empty position.   |\n";
+            cout << "    " << "|--------------------------------------|\n";
             return false;
         }
 
         if (board[ox][oy] == blank_symbol) {
-            cout << "No piece at source position!\n";
+            cout << "    " << "|--------------------------------------|\n";
+            cout << "    " << "|             INVALID MOVE             |\n";
+            cout << "    " << "|--------------------------------------|\n";
+            cout << "    " << "|      No piece at source position!    |\n";
+            cout << "    " << "|--------------------------------------|\n";
             return false;
         }
 
@@ -77,18 +89,28 @@ public:
         int dy = abs(oy - ny);
 
         if (dx == 1 && dy == 1) {
-            cout << "Diagonal moves are not allowed!\n";
-            return false;
+            cout << "    " << "|--------------------------------------|\n";
+            cout << "    " << "|             INVALID MOVE             |\n";
+            cout << "    " << "|--------------------------------------|\n";
+            cout << "    " << "|     Diagonal moves are not allowed!  |\n";
+            cout << "    " << "|--------------------------------------|\n";            return false;
         }
 
         if (dx > 1 || dy > 1) {
-            cout << "Invalid position, You cannot jump 2 cells\n";
-            return false;
+            cout << "    " << "|--------------------------------------|\n";
+            cout << "    " << "|             INVALID MOVE             |\n";
+            cout << "    " << "|--------------------------------------|\n";
+            cout << "    " << "|        You cannot jump 2 cells!      |\n";
+            cout << "    " << "|--------------------------------------|\n";            return false;
         }
 
         if (dx > 1 || dy > 1 || (dx == 0 && dy == 0)) {
-            cout << "You can only move to adjacent cells (up/down/left/right)!\n";
-            return false;
+            cout << "    " << "|--------------------------------------|\n";
+            cout << "    " << "|             INVALID MOVE             |\n";
+            cout << "    " << "|--------------------------------------|\n";
+            cout << "    " << "|       Move to adjacent cells only!   |\n";
+            cout << "    " << "|          (up/down/left/right)        |\n";
+            cout << "    " << "|--------------------------------------|\n";            return false;
         }
 
         return true;
@@ -163,45 +185,42 @@ class XO_GameSeven_UI : public UI<char> {
 private:
     int newX, newY;
     int oldX, oldY;
-    void display_welcome_message() {
-    cout << "========================================\n"
-         << "           4 x 4 Tic-Tac-Toe\n"
-         << "========================================\n"
-         << "           Welcome to Game Seven!       \n"
-         << "========================================\n\n"
-         << "    GAME RULES:\n"
-         << "*- Each player has 4 tokens (X or O)\n"
-         << "*- Move your tokens to adjacent cells (up/down/left/right)\n"
-         << "*- WINNING: Form 3 consecutive tokens in:\n"
-         << "  - ROW (horizontal)  \n"
-         << "  - COLUMN (vertical)  \n"
-         << "  - DIAGONAL (diagonal)\n"
-         << "========================================\n\n"
-        ;
-
-    }
-    void display_win_message(Player<char>* player) {
-        cout << "\n========================================\n"
-             << "                   VICTORY!              \n"
-             << "========================================\n"
-             << "   Congratulations " << player->get_name() << "! \n"
-             << "========================================\n";
-    }
-
 
 public:
     XO_GameSeven_UI() : UI<char> ("",3){
         display_welcome_message();
 }
 
+    void display_welcome_message() {
+        cout << "\n";
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "|           4 x 4 Tic-Tac-Toe          |\n";
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "|         Welcome to Game Seven!       |\n";
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "|             GAME RULES               |\n";
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "|  * Each player has 4 tokens (X/O)    |\n";
+        cout << "    " << "|  * Move tokens to adjacent cells     |\n";
+        cout << "    " << "|  * WIN: Form 3 consecutive tokens in |\n";
+        cout << "    " << "|    - Horizontal rows                 |\n";
+        cout << "    " << "|    - Vertical columns                |\n";
+        cout << "    " << "|    - Diagonal lines                  |\n";
+        cout << "    " << "|--------------------------------------|\n\n";
+    }
 
 
     Player<char>* create_player(string& name, char symbol, PlayerType type) {
-        cout << "Creating " << (type == PlayerType::HUMAN ? "human " : "computer ") << "player: "
-        << name << " (" << symbol << ") \n";
-
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "|             PLAYER CREATED           |\n";
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "|  Type:    " << setw(25) << left
+             << (type == PlayerType::HUMAN ? "Human" : "Computer") << " |\n";
+        cout << "    " << "|  Name:    " << setw(25) << left << name << " |\n";
+        cout << "    " << "|  Symbol:  " << setw(25) << left << symbol << " |\n";
+        cout << "    " << "|--------------------------------------|\n\n\n";
         return new Player<char> (name,symbol,type);
-    };
+    }
 
     Move<char>* get_move(Player<char>* player) {
 
@@ -210,28 +229,35 @@ public:
         vector<vector<char>> current_board = game_board->get_board_matrix();
 
         if (player->get_type() == PlayerType::HUMAN) {
-            cout << player->get_name() << "'s Turn (" << sym << ")\n";
-
+            cout << "    " << "|--------------------------------------|\n";
+            cout << "    " << "|              " << player->get_name() << "'s TURN            |\n";
+            cout << "    " << "|               Symbol: " << sym << "              |\n";
+            cout << "    " << "|--------------------------------------|\n";
             do {
-                cout << "Select a token to move (e.g., 0 2):  ";
+                cout << "    " << "| Select your piece (row col): ";
                 cin >> oldX >> oldY;
+                cout << "    " << "|--------------------------------------|\n";
+
                 if (oldX < 0 || oldX > 3 || oldY < 0 || oldY > 3 ||
                     current_board[oldX][oldY] != sym) {
-                    cout << "You can only move your own pieces. Select an (" <<  sym << "): " ;
-                    }
+                    cout << "    " << "|   You can only move your " << sym << " pieces!   |\n";
+                    cout << "    " << "|--------------------------------------|\n";                    }
             }
             while (oldX < 0 || oldX > 3 || oldY < 0 || oldY > 3 ||
             current_board[oldX][oldY] != sym);
 
-            do {
-                cout << "Move to which position: ";
-                cin >> newX >> newY;
-                if (!game_board->is_valid_move(oldX, oldY, newX, newY)) {
-                    cout << "INvalid\n";
-                }
-            }
-            while (!game_board->is_valid_move(oldX,oldY,newX,newY));
+            cout << "    " << "|   Selected piece at (" << oldX << "," << oldY << ")            |\n";
+            cout << "    " << "|--------------------------------------|\n";
 
+            do {
+                cout << "    " << "| Move to position (row col): ";
+                cin >> newX >> newY;
+                cout << "    " << "|--------------------------------------|\n\n\n";
+            }
+
+            while (!game_board->is_valid_move(oldX,oldY,newX,newY));
+            cout << "    " << "|    Moving to (" << newX << "," << newY << ")                   |\n";
+            cout << "    " << "|--------------------------------------|\n\n\n";
             return new XO_Move(oldX, oldY, newX, newY, sym);
         }
 
@@ -253,5 +279,5 @@ public:
                  !((abs(newX - oldX) == 1 && abs(newY - oldY) == 0) ||
                    (abs(newX - oldX) == 0 && abs(newY - oldY) == 1)));
             return new XO_Move(oldX, oldY, newX, newY, sym);        }
-    };
+    }
 };
