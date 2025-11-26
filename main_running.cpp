@@ -10,6 +10,9 @@
 #include "Inverse_XO_Classes.h"
 #include"Numerical Tic-Tac-Toe.h"
 #include "GameEight.h"
+#include "WordTicTacToe_Board.h"
+#include "WordTicTacToe_UI.h"
+
 
 
 
@@ -19,6 +22,33 @@ enum class games {
     Infinity,
     FourByFour
 };
+
+
+
+// Word Tic-tac-toe
+void WordTicTacToe() {
+    srand(static_cast<unsigned int>(time(0)));
+
+    WordTicTacToe_Board *board = new WordTicTacToe_Board();
+    WordTicTacToe_UI *ui = new WordTicTacToe_UI();
+
+    Player<char> **players = ui->setup_players();
+    GameManager<char> manager(board, players, ui);
+    manager.run();
+
+    // Cleanup
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
+    delete[] players;
+    delete board;
+    delete ui;
+}
+
+
+
+
+
 
 
 void SUS() {
@@ -137,8 +167,9 @@ void ava() {
     cout << "    " << "|  5.      Numerical Tic-Tac-Toe       |\n" ;
     cout << "    " << "|  6.      Obstacle Game               |\n" ;
     cout << "    " << "|  7.      Infinity Tic-Tac-Toe        |\n" ;
+    cout << "    " << "|  8.      WordTicTacToe_Board         |\n" ;
     cout << "    " << "|--------------------------------------|\n" ;
-    cout << "    " << "Enter your choice (1-7): ";
+    cout << "    " << "Enter your choice (1-8): ";
 }
 
 void start() {
@@ -175,5 +206,9 @@ int main() {
               case 7:
                   Inf();
                   break;
+              case 8:
+                  WordTicTacToe();
+                  break;
+
           }
 }
