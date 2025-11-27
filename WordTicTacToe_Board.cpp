@@ -13,11 +13,8 @@ WordTicTacToe_Board::WordTicTacToe_Board() : Board(3, 3) {
 bool WordTicTacToe_Board::update_board(Move<char>* move) {
     int x = move->get_x();
     int y = move->get_y();
-    if (x < 0 || x >= 3 || y < 0 || y >= 3) {
-        cout << "PLEASE ENTER NUM FROM 0 TO 2";
-        return false ;
-    }
-    if (board[x][y] == '  ')
+
+    if (board[x][y] == ' ')
         {
         board[x][y] = toupper(move->get_symbol());
         n_moves++;
@@ -32,8 +29,15 @@ bool WordTicTacToe_Board::is_win(Player<char>* player) {
     for (int i = 0; i < 3; i++) {
         string row = string(1, board[i][0]) + board[i][1] + board[i][2];
         if (isValidWord(row)) {
+            cout << "    " << "|--------------------------------------|\n";
+            cout << "    " << "|              WORD FORMED!            |\n";
+            cout << "    " << "|--------------------------------------|\n";
+            cout << "    " << "|  Player: " << setw(26) << left << player->get_name() << "|\n";
+            cout << "    " << "|  Collect Word:   " << setw(18) << left << row << "|\n";
+            cout << "    " << "|--------------------------------------|\n";
 
-            cout << player ->get_name() << "  ---->  " << " collect word : " << row << endl;
+            // cout << player ->get_name() << "  ---->  " << " collect word : " << row << endl;
+
             return true;
         }
     }
@@ -43,8 +47,14 @@ bool WordTicTacToe_Board::is_win(Player<char>* player) {
     for (int j = 0; j < 3; j++) {
         string col = string(1, board[0][j]) + board[1][j] + board[2][j];
         if (isValidWord(col)) {
+            cout << "    " << "|--------------------------------------|\n";
+            cout << "    " << "|              WORD FORMED!            |\n";
+            cout << "    " << "|--------------------------------------|\n";
+            cout << "    " << "|  Player: " << setw(26) << left << player->get_name() << "|\n";
+            cout << "    " << "|  Collect Word:   " << setw(18) << left << col << "|\n";
+            cout << "    " << "|--------------------------------------|\n";
 
-            cout << player ->get_name() << "  ---->  " << " collect word : " << col  << endl;
+            // cout << player ->get_name() << "  ---->  " << " collect word : " << col  << endl;
             return true;
         }
     }
@@ -54,12 +64,27 @@ bool WordTicTacToe_Board::is_win(Player<char>* player) {
     string diag2 = string(1, board[0][2]) + board[1][1] + board[2][0];
 
     if (isValidWord(diag1)) {
-        cout << player ->get_name() << "  ---->  " << " collect word : " << diag1  << endl;
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "|              WORD FORMED!            |\n";
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "|  Player: " << setw(26) << left << player->get_name() << "|\n";
+        cout << "    " << "|  Collect Word:   " << setw(18) << left << diag1 << "|\n";
+        cout << "    " << "|--------------------------------------|\n";
+
+        // cout << player ->get_name() << "  ---->  " << " collect word : " << diag1  << endl;
         return true;
 
     }
     if (isValidWord(diag2)) {
-        cout << player ->get_name() << "  ---->  " << " collect word : " << diag2  << endl;
+
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "|              WORD FORMED!            |\n";
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "|  Player: " << setw(26) << left << player->get_name() << "|\n";
+        cout << "    " << "|  Collect Word:   " << setw(18) << left << diag2 << "|\n";
+        cout << "    " << "|--------------------------------------|\n";
+
+        // cout << player ->get_name() << "  ---->  " << " collect word : " << diag2  << endl;
         return true;
 
     }

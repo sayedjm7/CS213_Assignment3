@@ -18,7 +18,7 @@ sus_game_board::~sus_game_board() {
     cout << "    " << "|--------------------------------------|\n";
     cout << "    " << "|  Player S: " << setw(25) << left << p1_score << " |\n";
     cout << "    " << "|  Player U: " << setw(25) << left << p2_score << " |\n";
-    cout << "    " << "|--------------------------------------|\n";}
+    cout << "    " << "|--------------------------------------|\n\n\n";}
 
 SUS_UI::SUS_UI() : UI<char>("", 3) {
     display_welcome_message();

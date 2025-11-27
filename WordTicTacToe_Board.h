@@ -27,13 +27,18 @@ private:
             file.open(path);
             if (file.is_open()) {
                 usedPath = path;
-                cout << "Successfully opened dictionary file: " << path  << endl << endl;
+                cout << "    " << "|--------------------------------------|\n";
+
+                cout << "    " << "|    File is opend: " << setw(19) << left << path << "|\n";
                 break;
             }
         }
 
         if (!file.is_open()) {
-            cout << "ERROR: Cannot open dic.txt file in any location!" << endl;
+            cout << "    " << "|--------------------------------------|\n";
+            cout << "    " << "|    ERROR: Cannot open dictionary     |\n";
+            cout << "    " << "|--------------------------------------|\n";
+
 
         }
 
@@ -44,7 +49,10 @@ private:
             dictionary.insert(word);
             count++;
         }
-        cout << "Successfully loaded " << count << " words from: " << usedPath << endl;
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    | File loaded " << count << " words from:" << usedPath << "|\n";
+        cout << "    " << "|--------------------------------------|\n";
+
         file.close();
     }
 

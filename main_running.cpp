@@ -1,15 +1,15 @@
 #include <iostream>
 #include "BoardGame_Classes.h"
-#include "X_O_4×4_Game.h"
-#include "XO_Classes.h"
 #include <cctype>
 #include <ctime>
 #include <string>
 #include "SUS_game.h"
-#include "Obstacles_game.h"
 #include "Inverse_XO_Classes.h"
-#include"Numerical Tic-Tac-Toe.h"
+#include "X_O_4×4_Game.h"
 #include "GameEight.h"
+#include "Numerical Tic-Tac-Toe.h"
+#include "Obstacles_game.h"
+#include "XO_Classes.h"
 #include "WordTicTacToe_Board.h"
 #include "WordTicTacToe_UI.h"
 
@@ -18,38 +18,7 @@
 
 using namespace std;
 
-enum class games {
-    Infinity,
-    FourByFour
-};
-
-
-
 // Word Tic-tac-toe
-void WordTicTacToe() {
-    srand(static_cast<unsigned int>(time(0)));
-
-    WordTicTacToe_Board *board = new WordTicTacToe_Board();
-    WordTicTacToe_UI *ui = new WordTicTacToe_UI();
-
-    Player<char> **players = ui->setup_players();
-    GameManager<char> manager(board, players, ui);
-    manager.run();
-
-    // Cleanup
-    for (int i = 0; i < 2; ++i) {
-        delete players[i];
-    }
-    delete[] players;
-    delete board;
-    delete ui;
-}
-
-
-
-
-
-
 
 void SUS() {
     srand(static_cast<unsigned int>(time(0)));
@@ -154,6 +123,24 @@ void Inf () {
     delete[] players;
 }
 
+void WordTicTacToe() {
+    srand(static_cast<unsigned int>(time(0)));
+
+    WordTicTacToe_Board *board = new WordTicTacToe_Board();
+    WordTicTacToe_UI *ui = new WordTicTacToe_UI();
+
+    Player<char> **players = ui->setup_players();
+    GameManager<char> manager(board, players, ui);
+    manager.run();
+
+    // Cleanup
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
+    delete[] players;
+    delete board;
+    delete ui;
+}
 
 
 void ava() {
@@ -178,37 +165,95 @@ void start() {
     cout << string(49, '=') << "\n";
 }
 
+void again() {
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|            GAME COMPLETED!           |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "| 1. Play Same Game Again              |\n";
+    cout << "    " << "| 2. Return to Game Selection          |\n";
+    cout << "    " << "| 3. Exit Game Center                  |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "Enter your choice (1-3): ";
+}
 
 int main() {
-          start();
-          ava();
-          int choice;
-          cin >> choice;
-          switch (choice) {
-              case 1:
-                  SUS();
-                  break;
-              case 2:
-                  Misere_Tic_Tac_Toe();
-                  break;
-              case 3:
-                  FourByFour();
-                  break;
-              case 4:
-                  GameEight();
-                  break;
-              case 5:
-                  Numerical_Tic_Tac_Toe();
-                  break;
-              case 6:
-                  Obstacle_game();
-                  break;
-              case 7:
-                  Inf();
-                  break;
-              case 8:
-                  WordTicTacToe();
-                  break;
+    start();
+    bool playAgain = true;
+    while (playAgain) {
+        ava();
+        int game_choice;
 
-          }
+        cin >> game_choice;
+        bool same_game = true;
+        while (same_game){
+            switch (game_choice) {
+                case 1:
+                    SUS();
+                    break;
+                case 2:
+                    Misere_Tic_Tac_Toe();
+                    break;
+                case 3:
+                    FourByFour();
+                    break;
+                case 4:
+                    GameEight();
+                    break;
+                case 5:
+                    Numerical_Tic_Tac_Toe();
+                    break;
+                case 6:
+                    Obstacle_game();
+                    break;
+                case 7:
+                    Inf();
+                    break;
+                case 8:
+                    WordTicTacToe();
+                    break;
+                default:
+                    cout << "    |------------------------------------------|\n";
+                    cout << "    |            INVALID SELECTION             |\n";
+                    cout << "    |------------------------------------------|\n";
+                    cout << "    |    Please enter a number from 1 to 8     |\n";
+                    cout << "    |------------------------------------------|\n";
+                    cout << "    Choice: ";
+                    cin >> game_choice;
+                    continue;
+
+            }
+            again();
+            int comp_choice;
+            cin >> comp_choice;
+            do {
+                if (comp_choice <= 3 && comp_choice >= 1) {
+                    break;
+                }
+                cout << "    |------------------------------------------|\n";
+                cout << "    |            INVALID SELECTION             |\n";
+                cout << "    |------------------------------------------|\n";
+                cout << "    |    Please enter a number from 1 to 3     |\n";
+                cout << "    |------------------------------------------|\n";
+                cout << "    Choice: ";
+                cin >> comp_choice;
+            } while (comp_choice < 1 || comp_choice > 3);
+            if (comp_choice == 1) {
+                continue;
+            }
+            else if (comp_choice == 2) {
+                break;
+            }
+            else if (comp_choice == 3) {
+                same_game = false;
+                playAgain = false;
+                cout << "    |------------------------------------------|\n";
+                cout << "    |            THANK YOU FOR PLAYING!        |\n";
+                cout << "    |------------------------------------------|\n";
+                cout << "    |         Hope to see you again soon!      |\n";
+                cout << "    |------------------------------------------|\n";
+            }
+
+        }
+    }
+    return 0;
 }
