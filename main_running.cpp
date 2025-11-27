@@ -1,3 +1,41 @@
+
+//========== Asignment Info =======
+// Name: Zyad Ahmed Abuelyazed Ameen
+// ID: 20240208
+// Task: Sus_game & group games
+//
+// Name: Omar Osama Othman
+// ID: 20240843
+// Task: 4*4 game & game 8 & group games
+//
+// Name: Omar Khaled Eid
+// ID: 20240368
+// Task: Misere game & group games
+//
+// Name: Sayed Mohammed Sayed El-badawy
+// ID: 20240255
+// Task: Words Tic-Tac-Toe
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #include <iostream>
 #include "BoardGame_Classes.h"
 #include <cctype>
