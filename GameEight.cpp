@@ -104,9 +104,9 @@ void Pry_UI::display_board_matrix(const vector<vector<char> > &matrix) const  {
         cout << string(inde, ' ');
         cout << string((cell_width + 2) * 2 * (i + 1) , '-') << "\n";
 
-        cout << string(inde, ' ') << i << " |";
+        cout << string(inde, ' ') << i << " | ";
         for (int j = 0; j < matrix[i].size(); ++j)
-            cout << setw(cell_width) << matrix[i][j] << " |";
+            cout << setw(cell_width) << matrix[i][j] << "| ";
         cout << "\n";
     }
 

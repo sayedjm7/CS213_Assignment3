@@ -243,13 +243,14 @@ public:
 
         cout << "\n    ";
         for (int j = 0; j < cols; ++j)
-            cout << setw(cell_width + 1) << j;
+            cout << setw(cell_width + 2) << j;
+
         cout << "\n   " << string((cell_width + 2) * cols, '-') << "\n";
 
         for (int i = 0; i < rows; ++i) {
-            cout << setw(2) << i << " |";
+            cout << setw(2) << i << "| ";
             for (int j = 0; j < cols; ++j)
-                cout << setw(cell_width) << matrix[i][j] << " |";
+                cout << setw(cell_width) << matrix[i][j] << "| ";
             cout << "\n   " << string((cell_width + 2) * cols, '-') << "\n";
         }
         cout << endl;
