@@ -50,6 +50,7 @@
 #include "XO_Classes.h"
 #include "WordTicTacToe_Board.h"
 #include "WordTicTacToe_UI.h"
+#include "four_in_row.h"
 
 
 
@@ -180,6 +181,25 @@ void WordTicTacToe() {
     delete ui;
 }
 
+void four_in_row() {
+    srand(static_cast<unsigned int>(time(0)));
+
+    four_in_row_board *board = new four_in_row_board();
+    four_in_row_ui *ui = new four_in_row_ui();
+
+    Player<char> **players = ui->setup_players();
+    GameManager<char> manager(board, players, ui);
+    manager.run();
+
+    // Cleanup
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
+    delete[] players;
+    delete board;
+    delete ui;
+}
+
 
 void ava() {
     cout << "    " << "|--------------------------------------|\n" ;
@@ -196,6 +216,8 @@ void ava() {
     cout << "    " << "|--------------------------------------|\n" ;
     cout << "    " << "Enter your choice (1-8): ";
 }
+
+
 
 void start() {
     cout << string(49, '=') << "\n";
@@ -248,6 +270,9 @@ int main() {
                     break;
                 case 8:
                     WordTicTacToe();
+                    break;
+                case 9:
+                    four_in_row();
                     break;
                 default:
                     cout << "    |------------------------------------------|\n";
