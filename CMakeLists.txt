@@ -25,4 +25,6 @@ add_executable(CS213_Assignment3_2
         X_O_4×4_Game.h
         XO_Classes.cpp
         XO_Classes.h
-        XO_Demo.cpp)
+        XO_Demo.cpp
+        four_in_row.h
+        four_in_row.cpp)
