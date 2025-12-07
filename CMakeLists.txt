@@ -27,4 +27,5 @@ add_executable(CS213_Assignment3_2
         XO_Classes.h
         XO_Demo.cpp
         four_in_row.h
-        four_in_row.cpp)
+        four_in_row.cpp
+        Memory_Tic_Tac_Toe.cpp)
