@@ -22,20 +22,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #include <iostream>
 #include "BoardGame_Classes.h"
 #include <cctype>
@@ -51,9 +37,10 @@
 #include "WordTicTacToe_Board.h"
 #include "WordTicTacToe_UI.h"
 #include "four_in_row.h"
-
-
-
+#include "Memory_Tic_Tac_Toe.h"
+#include "Memory_Tic_Tac_Toe.h"
+#include "Memory_Tic_Tac_Toe.h"
+#include "Memory_Tic_Tac_Toe.h"
 
 using namespace std;
 
@@ -103,6 +90,8 @@ void FourByFour() {
 
 }
 
+
+
 void GameEight() {
     srand(static_cast<unsigned int>(time(0)));
     Pry_UI ui;
@@ -147,6 +136,9 @@ void Obstacle_game(){
       }
     delete[] players;
 }
+
+
+
 
 void Inf () {
     srand(static_cast<unsigned int>(time(0)));  // Seed the random number generator
@@ -200,6 +192,25 @@ void four_in_row() {
     delete ui;
 }
 
+
+
+
+void Memory_game() {
+    srand(static_cast<unsigned int>(time(0)));
+
+    memory_ui ui;
+    Player<char>** players = ui.setup_players();
+    memory_board board;
+
+    GameManager<char> manager(&board, players, &ui);
+    manager.run();
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
+    delete[] players;
+}
+
+
 void ava() {
     cout << "    " << "|--------------------------------------|\n" ;
     cout << "    " << "|            GAME SELECTION            |\n" ;
@@ -212,8 +223,10 @@ void ava() {
     cout << "    " << "|  6.      Obstacle Game               |\n" ;
     cout << "    " << "|  7.      Infinity Tic-Tac-Toe        |\n" ;
     cout << "    " << "|  8.      WordTicTacToe_Board         |\n" ;
+    cout << "    " << "|  9.      Four_in_A_Row               |\n" ;
+    cout << "    " << "|  10.      Memory_Tic_Tac_Toe          |\n" ;
     cout << "    " << "|--------------------------------------|\n" ;
-    cout << "    " << "Enter your choice (1-8): ";
+    cout << "    " << "Enter your choice (1-10): ";
 }
 
 
@@ -274,11 +287,14 @@ int main() {
                 case 9:
                     four_in_row();
                     break;
+                case 10:
+                    Memory_game();
+                    break;
                 default:
                     cout << "    |------------------------------------------|\n";
                     cout << "    |            INVALID SELECTION             |\n";
                     cout << "    |------------------------------------------|\n";
-                    cout << "    |    Please enter a number from 1 to 8     |\n";
+                    cout << "    |    Please enter a number from 1 to 10     |\n";
                     cout << "    |------------------------------------------|\n";
                     cout << "    Choice: ";
                     cin >> game_choice;
