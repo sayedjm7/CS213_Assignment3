@@ -218,6 +218,7 @@ void ava() {
 
 
 
+
 void start() {
     cout << string(49, '=') << "\n";
     cout << "         Welcome to the Gaming Paradise!   " << "\n";
