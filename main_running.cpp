@@ -12,9 +12,9 @@
 // ID: 20240368
 // Task: Misere game & group games
 //
-// Name: Sayed Mohammed Sayed El-badawy
+// Name: Sayed Mohammed Sayed El-badawy Mohamed
 // ID: 20240255
-// Task: Words Tic-Tac-Toe
+// Task: Words Tic-Tac-Toe & group gamess
 
 
 
@@ -50,13 +50,15 @@
 #include "XO_Classes.h"
 #include "WordTicTacToe_Board.h"
 #include "WordTicTacToe_UI.h"
+#include "FiveByFive_Board__UI.h"
+#include "FiveByFive_Board.h"
+
 
 
 
 
 using namespace std;
 
-// Word Tic-tac-toe
 
 void SUS() {
     srand(static_cast<unsigned int>(time(0)));
@@ -161,6 +163,7 @@ void Inf () {
     delete[] players;
 }
 
+// Word Tic-tac-toe
 void WordTicTacToe() {
     srand(static_cast<unsigned int>(time(0)));
 
@@ -180,6 +183,24 @@ void WordTicTacToe() {
     delete ui;
 }
 
+//  5x5 Tic Tac Toe
+void FiveByFive_Game()
+{
+    srand(static_cast<unsigned int>(time(0)));
+    Five__Five_Board* board = new Five__Five_Board();
+    Five_And_Five_UI* ui = new Five_And_Five_UI();
+    Player<char>** players = ui->setup_players();
+    GameManager<char> manager(board, players, ui);
+    manager.run();
+    // Cleanup
+    for (int i = 0; i < 2; ++i)
+    {
+        delete players[i];
+    }
+    delete[] players;
+    delete board;
+    delete ui;
+}
 
 void ava() {
     cout << "    " << "|--------------------------------------|\n" ;
@@ -193,8 +214,11 @@ void ava() {
     cout << "    " << "|  6.      Obstacle Game               |\n" ;
     cout << "    " << "|  7.      Infinity Tic-Tac-Toe        |\n" ;
     cout << "    " << "|  8.      WordTicTacToe_Board         |\n" ;
+
+
+    cout << "    " << "|  11.      FiveByFive_Game            |\n" ;
     cout << "    " << "|--------------------------------------|\n" ;
-    cout << "    " << "Enter your choice (1-8): ";
+    cout << "    " << "Enter your choice (1-11): ";
 }
 
 void start() {
@@ -249,11 +273,15 @@ int main() {
                 case 8:
                     WordTicTacToe();
                     break;
+                case 11:
+                    FiveByFive_Game();
+                    break;
+
                 default:
                     cout << "    |------------------------------------------|\n";
                     cout << "    |            INVALID SELECTION             |\n";
                     cout << "    |------------------------------------------|\n";
-                    cout << "    |    Please enter a number from 1 to 8     |\n";
+                    cout << "    |    Please enter a number from 1 to 11    |\n";
                     cout << "    |------------------------------------------|\n";
                     cout << "    Choice: ";
                     cin >> game_choice;
