@@ -14,21 +14,7 @@
 //
 // Name: Sayed Mohammed Sayed El-badawy Mohamed
 // ID: 20240255
-// Task: Words Tic-Tac-Toe & group gamess
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Task: Words Tic-Tac-Toe & 5 x 5 Tic Tac Toe & group games
 
 
 
@@ -52,10 +38,11 @@
 #include "WordTicTacToe_UI.h"
 #include "FiveByFive_Board__UI.h"
 #include "FiveByFive_Board.h"
-
-
-
-
+#include "four_in_row.h"
+#include "Memory_Tic_Tac_Toe.h"
+#include "Memory_Tic_Tac_Toe.h"
+#include "Memory_Tic_Tac_Toe.h"
+#include "Memory_Tic_Tac_Toe.h"
 
 using namespace std;
 
@@ -104,6 +91,8 @@ void FourByFour() {
 
 }
 
+
+
 void GameEight() {
     srand(static_cast<unsigned int>(time(0)));
     Pry_UI ui;
@@ -148,6 +137,9 @@ void Obstacle_game(){
       }
     delete[] players;
 }
+
+
+
 
 void Inf () {
     srand(static_cast<unsigned int>(time(0)));  // Seed the random number generator
@@ -195,12 +187,40 @@ void FiveByFive_Game()
     // Cleanup
     for (int i = 0; i < 2; ++i)
     {
+void four_in_row() {
+    srand(static_cast<unsigned int>(time(0)));
+
+    four_in_row_board *board = new four_in_row_board();
+    four_in_row_ui *ui = new four_in_row_ui();
+
+    Player<char> **players = ui->setup_players();
+    GameManager<char> manager(board, players, ui);
+    manager.run();
+
+    // Cleanup
+    for (int i = 0; i < 2; ++i) {
         delete players[i];
     }
     delete[] players;
     delete board;
     delete ui;
 }
+
+void Memory_game() {
+    srand(static_cast<unsigned int>(time(0)));
+
+    memory_ui ui;
+    Player<char>** players = ui.setup_players();
+    memory_board board;
+
+    GameManager<char> manager(&board, players, &ui);
+    manager.run();
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
+    delete[] players;
+}
+
 
 void ava() {
     cout << "    " << "|--------------------------------------|\n" ;
@@ -214,12 +234,17 @@ void ava() {
     cout << "    " << "|  6.      Obstacle Game               |\n" ;
     cout << "    " << "|  7.      Infinity Tic-Tac-Toe        |\n" ;
     cout << "    " << "|  8.      WordTicTacToe_Board         |\n" ;
-
-
-    cout << "    " << "|  11.      FiveByFive_Game            |\n" ;
+    cout << "    " << "|  9.      Four_in_A_Row               |\n" ;
+    cout << "    " << "|  10.     Memory_Tic_Tac_Toe          |\n" ;
+    cout << "    " << "|  11.     FiveByFive_Game             |\n" ;
     cout << "    " << "|--------------------------------------|\n" ;
     cout << "    " << "Enter your choice (1-11): ";
+  
+   
 }
+
+
+
 
 void start() {
     cout << string(49, '=') << "\n";
@@ -272,11 +297,16 @@ int main() {
                     break;
                 case 8:
                     WordTicTacToe();
+                    break;      
+                case 9:
+                    four_in_row();
                     break;
-                case 11:
+                case 10:
+                    Memory_game();
+                    break;
+                  case 11:
                     FiveByFive_Game();
                     break;
-
                 default:
                     cout << "    |------------------------------------------|\n";
                     cout << "    |            INVALID SELECTION             |\n";
@@ -323,3 +353,4 @@ int main() {
     }
     return 0;
 }
+

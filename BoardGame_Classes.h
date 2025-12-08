@@ -148,6 +148,9 @@ public:
 
     /** @brief Get the player's symbol. */
     T get_symbol() const { return symbol; }
+    void set_symbol(char sym) {
+        symbol = sym;
+    }
 
     /** @brief Get a pointer to the game board. */
     Board<T>* get_board_ptr() const { return boardPtr; }

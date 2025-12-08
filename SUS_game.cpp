@@ -20,11 +20,7 @@ sus_game_board::~sus_game_board() {
     cout << "    " << "|  Player U: " << setw(25) << left << p2_score << " |\n";
     cout << "    " << "|--------------------------------------|\n\n\n";}
 
-SUS_UI::SUS_UI() : UI<char>("", 3) {
-    display_welcome_message();
-}
-
-void SUS_UI::display_welcome_message() {
+SUS_UI::SUS_UI() : UI<char>("", 3)  {
     cout << "    " << "|--------------------------------------|\n";
     cout << "    " << "|               SUS GAME               |\n";
     cout << "    " << "|--------------------------------------|\n";
@@ -38,8 +34,24 @@ void SUS_UI::display_welcome_message() {
     cout << "    " << "| * Scoring: 1 point per S-U-S sequence|\n";
     cout << "    " << "| * Winner: Most S-U-S sequences       |\n";
     cout << "    " << "|--------------------------------------|\n\n\n";
-
 }
+
+// void SUS_UI::display_welcome_message() {
+//     cout << "    " << "|--------------------------------------|\n";
+//     cout << "    " << "|               SUS GAME               |\n";
+//     cout << "    " << "|--------------------------------------|\n";
+//     cout << "    " << "|            Welcome to SUS!           |\n";
+//     cout << "    " << "|--------------------------------------|\n";
+//     cout << "    " << "|              GAME RULES:             |\n";
+//     cout << "    " << "|--------------------------------------|\n";
+//     cout << "    " << "| * Players:                           |\n";
+//     cout << "    " << "|   - Player 1: Places 'S' only        |\n";
+//     cout << "    " << "|   - Player 2: Places 'U' only        |\n";
+//     cout << "    " << "| * Scoring: 1 point per S-U-S sequence|\n";
+//     cout << "    " << "| * Winner: Most S-U-S sequences       |\n";
+//     cout << "    " << "|--------------------------------------|\n\n\n";
+//
+// }
 bool sus_game_board::update_board(Move<char> *move) {
     int x = move->get_x();
     int y = move->get_y();
@@ -110,6 +122,7 @@ void sus_game_board::count_sus_number(int x, int y, char sym) { // calculate the
 
 
 
+
 Player<char>* SUS_UI::create_player(string& name, char symbol, PlayerType type) {
     // Create player based on type
 
@@ -125,8 +138,15 @@ Player<char>* SUS_UI::create_player(string& name, char symbol, PlayerType type) 
     return new Player<char>(name, symbol, type);
 }
 
+void SUS_UI::display_welcome_message() {
+    return;
+}
+
 Move<char> *SUS_UI::get_move(Player<char> *player) {
     int x, y;
+    Board<char>* game_board = player->get_board_ptr();
+    vector<vector<char>> current_board = game_board->get_board_matrix();
+
 
     if (player->get_type() == PlayerType::HUMAN) {
         cout << "    " << "|--------------------------------------|\n";
@@ -136,15 +156,167 @@ Move<char> *SUS_UI::get_move(Player<char> *player) {
 
         cout << "    " << "| Enter your move (row col 0-2): ";
         cin >> x >> y;
-
-
-    }
-    else if (player->get_type() == PlayerType::COMPUTER) {
-        x = rand() % player->get_board_ptr()->get_rows();
-        y = rand() % player->get_board_ptr()->get_columns();
+        return new Move<char>(x, y, player->get_symbol());
 
     }
-    return new Move<char>(x, y, player->get_symbol());
+
+    if (player->get_type() == PlayerType::COMPUTER) {
+
+
+        // Computer is the S player
+
+        if (player->get_symbol() == 'S') {
+            // first move in game
+            if (current_board[0][0] == '.' && current_board[0][1] == '.' && current_board[0][2] == '.') {
+                return new Move<char>(0, 0, 'S');
+            }
+
+            // horizontal score
+            for (int i = 0; i <3; i++) {
+                if (current_board[i][0] == 'S' && current_board[i][1] == 'U' && current_board[i][2] == '.') {
+                    best_x = i;
+                    best_y = 2;
+                    return new Move<char>(best_x, best_y, 'S');
+                }
+            }
+
+            for (int i = 0; i <3; i++) {
+                if (current_board[i][2] == 'S' && current_board[i][1] == 'U' && current_board[i][0] == '.') {
+                    best_x = i;
+                    best_y = 0;
+                    return new Move<char>(best_x, best_y, 'S');
+                }
+            }
+
+            // vertical score
+            for (int i = 0; i <3; i++) {
+                if (current_board[0][i] == 'S' && current_board[1][i] == 'U' && current_board[2][i] == '.') {
+                    best_x = 2;
+                    best_y = i;
+                    return new Move<char>(best_x, best_y, 'S');
+                }
+            }
+
+            for (int i = 0; i <3; i++) {
+                if (current_board[2][i] == 'S' && current_board[1][i] == 'U' && current_board[0][i] == '.') {
+                    best_x = 0;
+                    best_y = i;
+                    return new Move<char>(best_x, best_y, 'S');
+                }
+            }
+
+            // diagonal 1
+            if (current_board[0][0] == 'S' && current_board[1][1] == 'U' && current_board[2][2] == '.') {
+                return new Move<char>(2, 2, 'S');
+
+            }
+
+            if (current_board[2][2] == 'S' && current_board[1][1] == 'U' && current_board[0][0] == '.') {
+                return new Move<char>(0, 0, 'S');
+
+            }
+
+
+            // diagonal 2
+            if (current_board[0][2] == 'S' && current_board[1][1] == 'U' && current_board[2][0] == '.') {
+                return new Move<char>(2, 0, 'S');
+
+            }
+
+            if (current_board[2][0] == 'S' && current_board[1][1] == 'U' && current_board[0][2] == '.') {
+                return new Move<char>(0, 2, 'S');
+            }
+
+
+            // Moves that make U can not get a point...
+            if (current_board[0][1] == '.') {
+                return new Move<char>(0, 1, 'S');
+
+            }
+
+            if (current_board[1][1] == '.') {
+                return new Move<char>(1, 1, 'S');
+
+            }
+
+            if (current_board[1][2] == '.') {
+                return new Move<char>(1, 2, 'S');
+
+            }
+
+            if (current_board[2][1] == '.') {
+                return new Move<char>(1, 2, 'S');
+
+            }
+
+            // A Random Move if there is not a smart one
+
+            do {
+                x = rand() % player->get_board_ptr()->get_rows();
+                y = rand() % player->get_board_ptr()->get_columns();
+            }
+            while (current_board[x][y] != '.');
+            return new Move<char>(x, y, 'S');
+
+        }
+
+
+        // Computer is the U player
+        if (player->get_symbol() == 'U') {
+
+            // Horizonal Score
+            for (int i = 0; i < 3; i++) {
+                if (current_board[i][0] == 'S' && current_board[i][2] == 'S' && current_board[i][1] == '.') {
+                    best_x = i;
+                    best_y = 1;
+                    return new Move<char>(i, 1, 'U');
+                }
+            }
+
+            // Vertical Score
+            for (int i = 0; i < 3; i++) {
+                if (current_board[0][i] == 'S' && current_board[2][i] == 'S' && current_board[1][i] == '.') {
+                    best_x = 1;
+                    best_y = i;
+                    return new Move<char>(1, i, 'U');
+                }
+            }
+
+            // Diagonal 1
+            if (current_board[0][0] == 'S' && current_board[2][2] == 'S' && current_board[1][1] == '.') {
+                best_x= 1;
+                best_y = 1;
+                return new Move<char>(1, 1, 'U');
+            }
+
+            // Diagonal 2
+
+            if (current_board[0][2] == 'S' && current_board[2][0] == 'S' && current_board[1][1] == '.') {
+                best_x= 1;
+                best_y = 1;
+                return new Move<char>(1, 1, 'U');
+            }
+
+
+            // If you can not score do not let S get a point
+            vector<pair<int,int>> S_loses_position = {
+                {0,0}, {0,2}, {2,0}, {2,2}
+            };
+            for (auto &c : S_loses_position) {
+                if (current_board[c.first][c.second] == '.') {
+                    return new Move<char>(c.first, c.second, 'U');
+                }
+            }
+
+            // A random move if there is no smart move...
+            do {
+                x = rand() % player->get_board_ptr()->get_rows();
+                y = rand() % player->get_board_ptr()->get_columns();
+            }
+            while (current_board[x][y] != '.');
+            return new Move<char>(x, y, 'U');
+        }
+    }
 }
 Player<char>** SUS_UI::setup_players() { // select player human or comp
     Player<char>** players = new Player<char>*[2];
@@ -164,20 +336,26 @@ Player<char>** SUS_UI::setup_players() { // select player human or comp
 
 
 bool sus_game_board::is_win(Player<char> *player) { // return true if s wins , return false if u wins
-    if (!game_is_over(nullptr)) return false;  // Only after board full
-    return p1_score > p2_score;
+
+    if (!game_is_over(nullptr)) {
+        return false;
+    }
+    if (p1_score > p2_score) {
+        player->set_symbol('S');
+        return true;
+    }
+    if (p2_score > p1_score) {
+        player->set_symbol('U');
+
+        return true;
+
+    }
+    // vector<vector<char>> current_board = game_board->get_board_matrix();
+
 }
+
 bool sus_game_board::is_draw(Player<char>* player) {
-    return game_is_over(nullptr) && p1_score == p2_score;
-
-}
-
-bool sus_game_board::game_is_over(Player<char>* player) {
-    for (int i = 0; i < rows; i++)
-        for (int j = 0; j < columns; j++)
-            if (board[i][j] == blank_symbol)
-                return false;
-    return true;
+    return (n_moves == 9);
 }
 
 
