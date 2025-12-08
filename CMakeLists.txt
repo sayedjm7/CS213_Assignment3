@@ -26,6 +26,11 @@ add_executable(CS213_Assignment3_2
         XO_Classes.cpp
         XO_Classes.h
         XO_Demo.cpp
+        FiveByFive_Board.cpp
+        FiveByFive_Board.h
+        FiveByFive_Board__UI.cpp
+        FiveByFive_Board__UI.h
+)
         four_in_row.h
         four_in_row.cpp
         Memory_Tic_Tac_Toe.cpp)

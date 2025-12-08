@@ -1,6 +1,5 @@
 #ifndef WORDTICTACTOE_BOARD_H
 #define WORDTICTACTOE_BOARD_H
-
 #include "BoardGame_Classes.h"
 #include <set>
 #include <string>
@@ -11,10 +10,9 @@
 class WordTicTacToe_Board : public Board<char> {
 private:
     set<string> dictionary;
-    string wordwin;
-
     void loadDictionary() {
-        string paths[] = {
+        string paths[] =
+        {
             "dic.txt",
             "../dic.txt",
             "../../dic.txt",
@@ -56,7 +54,8 @@ private:
         file.close();
     }
 
-    bool isValidWord(string word) {
+    bool isValidWord(string word)
+    {
         for (char& c : word) c = toupper(c);
         return dictionary.find(word) != dictionary.end();
     }
@@ -68,7 +67,6 @@ public:
     bool is_lose(Player<char>* player) override;
     bool is_draw(Player<char>* player) override;
     bool game_is_over(Player<char>* player) override;
-    string get_win_wotd() const{ return wordwin; }
 
 };
 
