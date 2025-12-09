@@ -10,11 +10,11 @@
 //
 // Name: Omar Khaled Eid
 // ID: 20240368
-// Task: 5, 6 game & group games
+// Task: game 5, 6  & group games
 //
 // Name: Sayed Mohammed Sayed El-badawy Mohamed
 // ID: 20240255
-// Task: 3,4  & group games
+// Task: game 3,4  & group games
 
 
 #include <iostream>
