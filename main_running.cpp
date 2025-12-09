@@ -2,19 +2,19 @@
 //========== Asignment Info =======
 // Name: Zyad Ahmed Abuelyazed Ameen
 // ID: 20240208
-// Task: Sus_game & group games
+// Task: game 1, 2 & group games
 //
 // Name: Omar Osama Othman
 // ID: 20240843
-// Task: 4*4 game & game 8 & group games
+// Task: game 7, 8 & game 8 & group games
 //
 // Name: Omar Khaled Eid
 // ID: 20240368
-// Task: Misere game & group games
+// Task: 5, 6 game & group games
 //
 // Name: Sayed Mohammed Sayed El-badawy Mohamed
 // ID: 20240255
-// Task: Words Tic-Tac-Toe & 5 x 5 Tic Tac Toe & group games
+// Task: 3,4  & group games
 
 
 #include <iostream>

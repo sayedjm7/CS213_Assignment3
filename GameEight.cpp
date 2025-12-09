@@ -72,7 +72,10 @@ bool Pry_UI::will_win(Board<char>* board,int& bx,int& by,char h_sym) {
     vector<vector<char>> current_board = board->get_board_matrix();
 
     // 00
-    if ((current_board[1][1] == h_sym && current_board[2][2] == h_sym) && current_board[0][0] == ' ') {
+    if (((current_board[1][1] == h_sym && current_board[2][2] == h_sym) && current_board[0][0] == ' ') ||
+        ((current_board[2][0] == h_sym && current_board[1][0] == h_sym) && current_board[0][0] == ' ') ||
+        ((current_board[2][4] == h_sym && current_board[1][2] == h_sym) && current_board[0][0] == ' ')
+            ) {
         bx = 0;
         by = 0;
         return true;
@@ -257,26 +260,25 @@ Move<char>* Pry_UI::get_move(Player<char>* player) {
             cout << "    |--------------------------------------|\n";
             return new Move<char>(best_x,  best_y, computer_symbol);
         }
-        else if (will_win(game_board, best_x, best_y, other_symbol)) {
+        if (will_win(game_board, best_x, best_y, other_symbol)) {
             cout << "    | Computer Strategy: Blocking Move     |\n";
             cout << "    |--------------------------------------|\n";
             return new Move<char>(best_x,   best_y, computer_symbol);
         }
-        else {
-            best_x = 2, best_y = 2;
-            cout << "    | Computer Strategy: Center Priority   |\n";
-            cout << "    |--------------------------------------|\n";
-            if (current_board[best_x][best_y] == ' ') {
-                return new Move<char>(best_x, best_y, computer_symbol);
-            }
-            else {
-                do {
-                    best_x = rand() % 3;
-                    best_y = rand() % 5;
-                }
-                while (current_board[best_x][best_y] != ' ' || (best_x == 0 && best_y != 0) || (best_x == 1 && best_y > 2));
-                return new Move<char>(best_x, best_y, computer_symbol);
-            }
+        best_x = 2, best_y = 2;
+        cout << "    | Computer Strategy: Center Priority   |\n";
+        cout << "    |--------------------------------------|\n";
+        if (current_board[best_x][best_y] == ' ') {
+            return new Move<char>(best_x, best_y, computer_symbol);
         }
+        do {
+            best_x = rand() % 3;
+            best_y = rand() % 5;
+
+
+
+        }
+        while (current_board[best_x][best_y] != ' ' || (best_x == 0 && best_y != 0) || (best_x == 1 && best_y > 2));
+        return new Move<char>(best_x, best_y, computer_symbol);
     }
 }
