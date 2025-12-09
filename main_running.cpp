@@ -17,11 +17,6 @@
 // Task: Words Tic-Tac-Toe & 5 x 5 Tic Tac Toe & group games
 
 
-
-
-
-
-
 #include <iostream>
 #include "BoardGame_Classes.h"
 #include <cctype>
@@ -29,7 +24,7 @@
 #include <string>
 #include "SUS_game.h"
 #include "Inverse_XO_Classes.h"
-#include "X_O_4×4_Game.h"
+#include "XO_4x4_Game.h"
 #include "GameEight.h"
 #include "Numerical Tic-Tac-Toe.h"
 #include "Obstacles_game.h"
@@ -91,8 +86,6 @@ void FourByFour() {
 
 }
 
-
-
 void GameEight() {
     srand(static_cast<unsigned int>(time(0)));
     Pry_UI ui;
@@ -105,16 +98,13 @@ void GameEight() {
         delete players[i];
     }
     delete[] players;
-    // cout << "DONE COMMENT\n";
-
-
- }
+}
 
 void Numerical_Tic_Tac_Toe() {
     srand(static_cast<unsigned int>(time(0)));
     Numaric_XO_UI ui;
     Player<int>** players = ui.setup_players();
-	Numaric_XO_Board board;
+    Numaric_XO_Board board;
     GameManager<int> manager(&board, players, &ui);
     manager.run();
     for (int i = 0; i < 2; ++i) {
@@ -124,22 +114,19 @@ void Numerical_Tic_Tac_Toe() {
 }
 
 void Obstacle_game(){
-  srand(static_cast<unsigned int>(time(0)));
-      obstacle_ui ui;
-      Player<char>** players = ui.setup_players();
-      obstacle_board board;
+    srand(static_cast<unsigned int>(time(0)));
+    obstacle_ui ui;
+    Player<char>** players = ui.setup_players();
+    obstacle_board board;
 
-      GameManager<char> manager(&board, players, &ui);
-      manager.run();
+    GameManager<char> manager(&board, players, &ui);
+    manager.run();
 
-      for (int i = 0; i < 2; ++i) {
-          delete players[i];
-      }
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
     delete[] players;
 }
-
-
-
 
 void Inf () {
     srand(static_cast<unsigned int>(time(0)));  // Seed the random number generator
@@ -192,6 +179,7 @@ void FiveByFive_Game()
     delete board;
     delete ui;
 }
+
 void four_in_row() {
     srand(static_cast<unsigned int>(time(0)));
 
@@ -227,6 +215,7 @@ void Memory_game() {
 }
 
 
+
 void ava() {
     cout << "    " << "|--------------------------------------|\n" ;
     cout << "    " << "|            GAME SELECTION            |\n" ;
@@ -247,9 +236,6 @@ void ava() {
   
    
 }
-
-
-
 
 void start() {
     cout << string(49, '=') << "\n";

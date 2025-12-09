@@ -62,7 +62,7 @@ public:
      * @return true if the move is valid and applied, false otherwise.
      */
     virtual bool update_board(Move<T>* move) = 0;
-    virtual bool is_valid_move(int ox, int oy, int nx, int ny) {
+    virtual bool is_valid_move(int ox, int oy, int nx, int ny,PlayerType p) {
         return false;
     } ;
     /** @brief Check if a player has won. */
