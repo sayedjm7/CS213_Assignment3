@@ -16,7 +16,7 @@ memory_board::memory_board() : Board(3, 3) {
     real_board = vector<vector<char>>(3, vector<char>(3, blank_symbol));
 
 }
-bool memory_board::is_valid_move(int ox, int oy, int nx, int ny) {
+bool memory_board::is_valid_move(int ox, int oy, int nx, int ny,PlayerType p) {
     return true;
 }
 bool memory_board::update_board(Move<char>* move) {

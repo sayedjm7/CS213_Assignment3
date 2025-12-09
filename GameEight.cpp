@@ -7,12 +7,11 @@
 #include <queue>
 using namespace std;
 
-// Pry_Board
+// -- Pry_Board
 
 // constractor
 Pry_Board::Pry_Board() : Board<char>(3,5) {
     this->board.clear();
-
     this->board.push_back(vector<char>(1, black_symbol));
     this->board.push_back(vector<char>(3, black_symbol));
     this->board.push_back(vector<char>(5, black_symbol));
@@ -20,8 +19,56 @@ Pry_Board::Pry_Board() : Board<char>(3,5) {
 
 // method the Board class
 
+bool Pry_Board::is_win(Player<char>* player) {
+    const char sym = player->get_symbol();
 
-bool will_win(Board<char>* board,int& bx,int& by,char h_sym) {
+    auto all_eq = [&](char a, char b, char c) {
+        return (a == b && b == c && a != black_symbol);
+    };
+
+    for (int j = 1; j < 3; j++) {
+        for (int i = 0; i + 2 <  board[j].size(); i++) {
+            if (all_eq(board[j][i], board[j][i + 1], board[j][i + 2])) {
+                return true;
+            }
+        }
+    }
+
+    if (all_eq(board[0][0], board[1][1], board[2][2]) ||
+        all_eq(board[0][0], board[1][2], board[2][4]) ||
+        all_eq(board[0][0], board[1][0], board[2][0]) ) {
+        return true;
+    }
+    return false;
+}
+
+bool Pry_Board::is_draw(Player<char> *player) {
+    return (n_moves == 9 && !is_win(player));
+}
+
+bool Pry_Board::update_board(Move<char> *move) {
+
+    int x = move->get_x();
+    int y = move->get_y();
+    char sym = move->get_symbol();
+
+    if (board[x][y] == black_symbol) {
+        board[x][y] = sym;
+        n_moves++;
+        return true;
+    }
+    return false;
+}
+
+bool Pry_Board::game_is_over(Player<char>* player) {
+    return is_draw(player) || is_win(player);
+}
+
+//------------------------------------------------------------------------
+
+
+// -- Pry_UI
+bool Pry_UI::will_win(Board<char>* board,int& bx,int& by,char h_sym) {
     vector<vector<char>> current_board = board->get_board_matrix();
 
     // 00
@@ -103,65 +150,6 @@ bool will_win(Board<char>* board,int& bx,int& by,char h_sym) {
     return false;
 }
 
-
-bool Pry_Board::is_win(Player<char>* player) {
-    const char sym = player->get_symbol();
-    //      00
-    //   10 11 12
-    //20 21 22 23 24
-//-----------------------------
-    auto all_eq = [&](char a, char b, char c) {
-        return (a == b && b == c && a != black_symbol);
-    };
-
-    // 1 (i 0-2)
-    // 2 (i 0-4) 0-2 1-3 2-4
-    for (int j = 1; j < 3; j++) {
-        for (int i = 0; i + 2 <  board[j].size(); i++) {
-            if (all_eq(board[j][i], board[j][i + 1], board[j][i + 2])) {
-                return true;
-            }
-        }
-    }
-
-    // 00 11 22
-    // 00 12 24 || 00 10 20 -> i(0-2) 0
-    if (all_eq(board[0][0], board[1][1], board[2][2]) ||
-        all_eq(board[0][0], board[1][2], board[2][4]) ||
-        all_eq(board[0][0], board[1][0], board[2][0]) ) {
-        return true;
-    }
-    return false;
-}
-
-bool Pry_Board::is_draw(Player<char> *player) {
-    return (n_moves == 9 && !is_win(player));
-}
-
-bool Pry_Board::update_board(Move<char> *move) {
-
-
-    int x = move->get_x();
-    int y = move->get_y();
-    char sym = move->get_symbol();
-
-
-    if (board[x][y] == black_symbol) {
-        board[x][y] = sym;
-        n_moves++;
-        return true;
-    }
-    return false;
-}
-
-bool Pry_Board::game_is_over(Player<char>* player) {
-    return is_draw(player) || is_win(player);
-}
-
-
-
-// Pry_UI
-
 Pry_UI::Pry_UI() : UI<char>("",3) {
     display_welcome_message();
 }
@@ -172,11 +160,10 @@ void Pry_UI::display_message(string message) {
     cout << "    |--------------------------------------|\n";}
 
 void Pry_UI::display_board_matrix(const vector<vector<char> > &matrix) const  {
+    int rows = matrix.size();
+
 
     if (matrix.empty()) return;
-    //
-    int rows = matrix.size();
-    int cols = 5;
 
     cout << "\n           ";
     for (int i = 0; i < 5; i++) {
@@ -185,21 +172,17 @@ void Pry_UI::display_board_matrix(const vector<vector<char> > &matrix) const  {
     cout << "\n";
 
     for (int i = 0 , inde = 10; i < rows; ++i, inde -= 5) {
-
         cout << string(inde + 7, ' ');
         cout << string((cell_width + 2) * 2 * (i + 1) , '-') << "\n";
-
         cout << string(inde + 7, ' ') << i << " | ";
-        for (int j = 0; j < matrix[i].size(); ++j)
+        for (int j = 0; j < matrix[i].size(); ++j) {
             cout << setw(cell_width) << matrix[i][j] << "| ";
+        }
         cout << "\n";
     }
     cout << "       ";
     cout << string((cell_width + 2) * 6, '-') << "\n\n";
-
-
 }
-
 
 
 Player<char>* Pry_UI::create_player(string &name, char symbol, PlayerType type) {
@@ -208,15 +191,12 @@ Player<char>* Pry_UI::create_player(string &name, char symbol, PlayerType type) 
     cout << "    | Name: " << setw(28) << left << name << " |\n";
     cout << "    | Symbol: " << symbol << "                           |\n";
     cout << "    |--------------------------------------|\n";
-
     return new Player<char> (name,symbol,type);
 }
 
 Move<char>* Pry_UI::get_move(Player<char>* player) {
     int x, y;
-
     Board<char>* game_board = player->get_board_ptr();
-    const char sym = player->get_symbol();
     vector<vector<char>> current_board = game_board->get_board_matrix();
 
     // human move
@@ -263,7 +243,6 @@ Move<char>* Pry_UI::get_move(Player<char>* player) {
         return new Move<char>(x, y, player->get_symbol());
     }
 
-
     // computer move
     else if (player->get_type() == PlayerType::COMPUTER) {
 
@@ -302,68 +281,4 @@ Move<char>* Pry_UI::get_move(Player<char>* player) {
         while (current_board[best_x][best_y] != ' ' || (best_x == 0 && best_y != 0) || (best_x == 1 && best_y > 2));
         return new Move<char>(best_x, best_y, computer_symbol);
     }
-
 }
-
-
-/*
- *
- *
- *
- *
- * if (2 2) empty -> 2 2
- * else -> (3 2)
- *
- * block {
- *      chick {
- *
- *
-*          for (int j = 1; j < 3; j++) {
-*           for (int i = 0; i + 2 <  board[j].size(); i++) {
-*
-*                if( ( ji & ji+1 = hum -> ji+2 = com) || (ji+1 & j1+2 = hum -> ji = com ) || (ji & ji+2 = hum -> ji+1 = com ) )
-*
-*
-*                if (all_eq(board[j][i], board[j][i + 1], board[j][i + 2]))
-*
-*                if ( 2 = symbol and 1 ' ' ) {
-*                   computer symbol -> ' '
-*               }
-*           }
-*
-*           if( ( 00 & 11 = hum -> 22 = com ) || (00 & 22 = hum -> 11 = com ) || (11 & 22 = hum  -> 00 = com ) )
-*           if( ( 00 & 12 = hum -> 24 = com ) || (12 & 24 = hum -> 00 = com ) || (00 & 24 = hum  -> 12 = com ) )
-*           if( ( 00 & 10 = hum -> 20 = com ) || (10 & 20 = hum -> 00 = com ) || (00 & 20 = hum  -> 10 = com ) )
-*
-*
-*           10 12 13
-*           20 21 22
-*           21 22 23
-*           22 23 24
-*
-*           10 -> 12 13, 12 -> 10 13, 13 -> 10 12
-*           20 -> 21 22,
-*           24 -> 23 22
-*           21 -> ((20 22) || (22 23)),
-*           22 -> ((20 21) || (21 23)),
-*           23 -> ((21 22) || (22 24)),
-*
-*
-*
-*
-*
-*           all_eq(board[0][0], board[1][1], board[2][2]) ||
-        all_eq(board[0][0], board[1][2], board[2][4]) ||
-        all_eq(board[0][0], board[1][0], board[2][0]) )
-*       }
-*     }
- *      do{
- *
- *      }
- *
- * }
- *
- * win {
- *
- * }
- */

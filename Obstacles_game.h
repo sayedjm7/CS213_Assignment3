@@ -29,7 +29,7 @@ public:
     obstacle_board();
 
     bool update_board(Move<char>* move);
-    bool is_valid_move(int ox, int oy, int nx, int ny) ;
+    bool is_valid_move(int ox, int oy, int nx, int ny,PlayerType p) ;
 
     bool is_win(Player<char>* player);
 

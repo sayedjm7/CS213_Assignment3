@@ -8,28 +8,25 @@ class Pry_Board : public Board<char> {
 private:
     char black_symbol = ' ';
 
-
 public:
     Pry_Board();
 
     bool update_board(Move<char>* move);
-    bool is_valid_move(int ox, int oy, int nx, int ny) override {
-        return false;};
+    bool is_valid_move(int ox, int oy, int nx, int ny,PlayerType p) override {return false;};
     bool is_win(Player<char>* player);
     bool is_lose(Player<char>* player) {return false;};
     bool is_draw(Player<char>* player);
     bool game_is_over(Player<char> *) override;
-
-
-    // checks
-    bool hum_will_win(Board<char>* game_board,int x1,int y1, int x2, int y2, int x3, int y3);
-
 };
 
 class Pry_UI : public UI<char> {
 private:
     int x, y;
+
 public:
+
+    Pry_UI();
+    void display_message(string message);
     void display_welcome_message(){
         cout << "\n\n";
         cout << "    " << "|--------------------------------------|\n";
@@ -48,9 +45,7 @@ public:
         cout << "    " << "|       - Diagonal lines               |\n";
         cout << "    " << "|--------------------------------------|\n\n";
     }
-
-    Pry_UI();
-    void display_message(string message);
+    bool will_win(Board<char>* board,int& bx,int& by,char h_sym);
     void display_board_matrix(const vector<vector<char>>& matrix) const override;
     Player<char>* create_player(string &name, char symbol, PlayerType type);
     Move<char>* get_move(Player<char>* player);
