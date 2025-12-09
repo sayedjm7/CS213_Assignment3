@@ -20,6 +20,10 @@ public:
     bool is_draw(Player<char>* player);
     bool game_is_over(Player<char> *) override;
 
+
+    // checks
+    bool hum_will_win(Board<char>* game_board,int x1,int y1, int x2, int y2, int x3, int y3);
+
 };
 
 class Pry_UI : public UI<char> {
@@ -27,21 +31,22 @@ private:
     int x, y;
 public:
     void display_welcome_message(){
-        cout << "========================================\n"
-             << "          Pyramid Tic-Tac-Toe\n"
-             << "========================================\n"
-             << "          Welcome to Game Eight!        \n"
-             << "========================================\n\n"
-             << "    GAME RULES:\n"
-             << "*- A pyramid-shaped board with 3 rows:\n"
-             << "   Top: 1 square\n"
-             << "   Middle: 3 squares\n"
-             << "   Base: 5 squares\n"
-             << "*- WINNING: Align 3 consecutive marks in:\n"
-             << "   - ROW (horizontal)\n"
-             << "   - COLUMN (vertical)\n"
-             << "   - DIAGONAL (diagonal)\n"
-             << "========================================\n\n";
+        cout << "\n\n";
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "|         WELCOME TO GAME EIGHT        |\n";
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "|          Pyramid Tic-Tac-Toe         |\n";
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "|        Three Rows Pyramid:           |\n";
+        cout << "    " << "|          - Row 0: 1 cell             |\n";
+        cout << "    " << "|          - Row 1: 3 cells            |\n";
+        cout << "    " << "|          - Row 2: 5 cells            |\n";
+        cout << "    " << "|--------------------------------------|\n";
+        cout << "    " << "|      Align 3 marks to win in:        |\n";
+        cout << "    " << "|       - Horizontal lines             |\n";
+        cout << "    " << "|       - Vertical lines               |\n";
+        cout << "    " << "|       - Diagonal lines               |\n";
+        cout << "    " << "|--------------------------------------|\n\n";
     }
 
     Pry_UI();

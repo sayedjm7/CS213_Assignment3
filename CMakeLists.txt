@@ -30,7 +30,7 @@ add_executable(CS213_Assignment3_2
         FiveByFive_Board.h
         FiveByFive_Board__UI.cpp
         FiveByFive_Board__UI.h
-)
         four_in_row.h
         four_in_row.cpp
-        Memory_Tic_Tac_Toe.cpp)
+        Memory_Tic_Tac_Toe.cpp
+        main_running.cpp)

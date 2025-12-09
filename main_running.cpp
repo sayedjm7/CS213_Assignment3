@@ -185,8 +185,13 @@ void FiveByFive_Game()
     GameManager<char> manager(board, players, ui);
     manager.run();
     // Cleanup
-    for (int i = 0; i < 2; ++i)
-    {
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
+    delete[] players;
+    delete board;
+    delete ui;
+}
 void four_in_row() {
     srand(static_cast<unsigned int>(time(0)));
 
@@ -304,7 +309,7 @@ int main() {
                 case 10:
                     Memory_game();
                     break;
-                  case 11:
+                case 11:
                     FiveByFive_Game();
                     break;
                 default:
@@ -353,4 +358,3 @@ int main() {
     }
     return 0;
 }
-
