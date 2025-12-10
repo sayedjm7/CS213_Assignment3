@@ -29,15 +29,19 @@
 #include "Numerical Tic-Tac-Toe.h"
 #include "Obstacles_game.h"
 #include "XO_Classes.h"
-#include "WordTicTacToe_Board.h"
-#include "WordTicTacToe_UI.h"
-#include "FiveByFive_Board__UI.h"
-#include "FiveByFive_Board.h"
+#include "Word_Tic_Tac_Toe.h"
+#include "Word_Tic_Tac_Toe_UI.h"
+#include "5_x_5_Tic_Tac_Toe.h"
+#include "5_x_5_Tic_Tac_Toe_UI.h"
 #include "four_in_row.h"
 #include "Memory_Tic_Tac_Toe.h"
 #include "Memory_Tic_Tac_Toe.h"
 #include "Memory_Tic_Tac_Toe.h"
 #include "Memory_Tic_Tac_Toe.h"
+#include <cstdlib>
+#include <ctime>
+#include "Ultimate_Tic_Tac_Toe.h"
+#include "Ultimate_UI.h"
 
 using namespace std;
 
@@ -146,8 +150,8 @@ void Inf () {
 void WordTicTacToe() {
     srand(static_cast<unsigned int>(time(0)));
 
-    WordTicTacToe_Board *board = new WordTicTacToe_Board();
-    WordTicTacToe_UI *ui = new WordTicTacToe_UI();
+    Word_Tic_Tac_Toe *board = new Word_Tic_Tac_Toe();
+    Word_Tic_Tac_Toe_UI *ui = new Word_Tic_Tac_Toe_UI();
 
     Player<char> **players = ui->setup_players();
     GameManager<char> manager(board, players, ui);
@@ -163,8 +167,7 @@ void WordTicTacToe() {
 }
 
 //  5x5 Tic Tac Toe
-void FiveByFive_Game()
-{
+void FiveByFive_Game() {
     srand(static_cast<unsigned int>(time(0)));
     Five__Five_Board* board = new Five__Five_Board();
     Five_And_Five_UI* ui = new Five_And_Five_UI();
@@ -178,6 +181,29 @@ void FiveByFive_Game()
     delete[] players;
     delete board;
     delete ui;
+}
+
+
+void Ultimate_Tic_Tac_Toe() {
+    srand(static_cast<unsigned int>(time(0)));
+    Ultimate_UI ui;
+    ui.display_welcome_message();
+
+    Player<char>** players = ui.setup_players();
+
+    Ultimate_Board board;
+    ui.set_ultimate_board(&board);
+    players[0]->set_board_ptr(&board);
+    players[1]->set_board_ptr(&board);
+    Player<char>* playerArray[2] = {players[0], players[1]};
+    GameManager<char> gameManager(&board, playerArray, &ui);
+    gameManager.run();
+    for (int i = 0; i < 2; ++i)
+    {
+        delete players[i];
+    }
+    delete[] players;
+
 }
 
 void four_in_row() {
@@ -230,9 +256,10 @@ void ava() {
     cout << "    " << "|  8.      WordTicTacToe_Board         |\n" ;
     cout << "    " << "|  9.      Four_in_A_Row               |\n" ;
     cout << "    " << "|  10.     Memory_Tic_Tac_Toe          |\n" ;
-    cout << "    " << "|  11.     FiveByFive_Game             |\n" ;
+    cout << "    " << "|  11.     5 x 5 Tic Tac Toe           |\n" ;
+    cout << "    " << "|  12.     Ultimate Tic Tac Toe        |\n" ;
     cout << "    " << "|--------------------------------------|\n" ;
-    cout << "    " << "Enter your choice (1-11): ";
+    cout << "    " << "Enter your choice (1-12): ";
   
    
 }
@@ -297,18 +324,23 @@ int main() {
                     break;
                 case 11:
                     FiveByFive_Game();
+                    break; case 12:
+                    Ultimate_Tic_Tac_Toe();
                     break;
                 default:
                     cout << "    |------------------------------------------|\n";
                     cout << "    |            INVALID SELECTION             |\n";
                     cout << "    |------------------------------------------|\n";
-                    cout << "    |    Please enter a number from 1 to 11    |\n";
+                    cout << "    |    Please enter a number from 1 to 12    |\n";
                     cout << "    |------------------------------------------|\n";
                     cout << "    Choice: ";
                     cin >> game_choice;
                     continue;
 
             }
+            cout << "\n           Press Enter to return to main menu...";
+            cin.ignore();
+            cin.get();
             again();
             int comp_choice;
             cin >> comp_choice;

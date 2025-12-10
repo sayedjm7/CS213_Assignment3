@@ -305,8 +305,8 @@ public:
                     cout << "    " << "|--------------------------------------|\n";
                     cout << "    " << "|                 VICTORY!             |\n";
                     cout << "    " << "|--------------------------------------|\n";
-                    cout << "    " << "|  Winner: " << setw(26) << left << currentPlayer->get_name() << "|\n";
-                    cout << "    " << "|  Symbol: " << setw(26) << left << string(1, currentPlayer->get_symbol()) << "|\n";
+                    cout << "    " << "|  Winner: " << setw(26) << left << currentPlayer->get_name() << "  |\n";
+                    cout << "    " << "|  Symbol: " << setw(26) << left << string(1, currentPlayer->get_symbol()) << "  |\n";
                     cout << "    " << "|                                      |\n";
                     cout << "    " << "|             Congratulations!         |\n";
                     cout << "    " << "|--------------------------------------|\n\n\n";
@@ -317,8 +317,8 @@ public:
                     cout << "    " << "|--------------------------------------|\n";
                     cout << "    " << "|                 VICTORY!             |\n";
                     cout << "    " << "|--------------------------------------|\n";
-                    cout << "    " << "|  Winner: " << setw(26) << left << players[1 - i]->get_name() << "|\n";
-                    cout << "    " << "|  Symbol: " << setw(26) << left << string(1, players[1 - i]->get_symbol()) << "|\n";
+                    cout << "    " << "|  Winner: " << setw(26) << left << players[1 - i]->get_name() << "  |\n";
+                    cout << "    " << "|  Symbol: " << setw(26) << left << string(1, players[1 - i]->get_symbol()) << "  |\n";
                     cout << "    " << "|                                      |\n";
                     cout << "    " << "|             Congratulations!         |\n";
                     cout << "    " << "|--------------------------------------|\n\n\n";

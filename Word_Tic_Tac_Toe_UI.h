@@ -2,12 +2,12 @@
 #define WORDTICTACTOE_UI_H
 
 #include "BoardGame_Classes.h"
-#include "WordTicTacToe_Board.h"
+#include "Word_Tic_Tac_Toe.h"
 #include <set>
 #include <vector>
 #include <algorithm>
 
-class WordTicTacToe_UI : public UI<char>
+class Word_Tic_Tac_Toe_UI : public UI<char>
 {
 
 private:
@@ -23,7 +23,7 @@ private:
     Move<char>* getAIMove(Player<char>* player);
 
 public:
-    WordTicTacToe_UI();
+    Word_Tic_Tac_Toe_UI();
     Move<char>* get_move(Player<char>* player) override;
     Player<char>* create_player(string& name, char symbol, PlayerType type) override;
     void display_welcome_message() override;

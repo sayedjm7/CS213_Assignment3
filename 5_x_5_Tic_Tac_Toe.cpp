@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "FiveByFive_Board.h"
+#include "5_x_5_Tic_Tac_Toe.h"
 using namespace std;
 
 Five__Five_Board::Five__Five_Board() : Board(5, 5)

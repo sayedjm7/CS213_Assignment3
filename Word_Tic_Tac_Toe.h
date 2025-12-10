@@ -7,7 +7,7 @@
 #include <cctype>
 #include <iostream>
 
-class WordTicTacToe_Board : public Board<char> {
+class Word_Tic_Tac_Toe : public Board<char> {
 private:
     set<string> dictionary;
     void loadDictionary() {
@@ -61,7 +61,7 @@ private:
     }
 
 public:
-    WordTicTacToe_Board();
+    Word_Tic_Tac_Toe();
     bool update_board(Move<char>* move) override;
     bool is_win(Player<char>* player) override;
     bool is_lose(Player<char>* player) override;

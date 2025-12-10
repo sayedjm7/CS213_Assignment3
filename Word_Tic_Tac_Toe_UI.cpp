@@ -1,12 +1,14 @@
-#include "WordTicTacToe_UI.h"
+#include "Word_Tic_Tac_Toe_UI.h"
 #include <iostream>
 #include <limits>
 #include <sstream>
 #include <cctype>
 #include <fstream>
 #include <set>
+#include <limits>
+#include <sstream>
 
-void WordTicTacToe_UI::display_welcome_message() {
+void Word_Tic_Tac_Toe_UI::display_welcome_message() {
     cout << "    " << "|--------------------------------------|\n";
     cout << "    " << "|          WORD TIC-TAC-TOE            |\n";
     cout << "    " << "|--------------------------------------|\n";
@@ -29,13 +31,13 @@ void WordTicTacToe_UI::display_welcome_message() {
 }
 
 
-WordTicTacToe_UI::WordTicTacToe_UI() : UI("", 3) {
+Word_Tic_Tac_Toe_UI::Word_Tic_Tac_Toe_UI() : UI("", 3) {
     dictionaryLoaded = false;
     srand(time(0));
     display_welcome_message();
 }
 
-void WordTicTacToe_UI::loadAIDictionary() {
+void Word_Tic_Tac_Toe_UI::loadAIDictionary() {
     if (dictionaryLoaded) return;
 
     string paths[] = {"dic.txt", "../dic.txt", "../../dic.txt"};
@@ -75,7 +77,7 @@ void WordTicTacToe_UI::loadAIDictionary() {
     dictionaryLoaded = true;
 }
 
-bool WordTicTacToe_UI::isValidWordAI(const string& word) {
+bool Word_Tic_Tac_Toe_UI::isValidWordAI(const string& word) {
     string upperWord = word;
     for (char& c : upperWord) c = toupper(c);
     return aiDictionary.find(upperWord) != aiDictionary.end();
@@ -83,7 +85,7 @@ bool WordTicTacToe_UI::isValidWordAI(const string& word) {
 
 
 
-bool WordTicTacToe_UI::canCompleteWordAI(const string& partial, char& missingChar, int missingPos) {
+bool Word_Tic_Tac_Toe_UI::canCompleteWordAI(const string& partial, char& missingChar, int missingPos) {
     for (char c = 'A'; c <= 'Z'; c++) {
         string testWord = partial;
         testWord.insert(missingPos, 1, c);
@@ -95,7 +97,7 @@ bool WordTicTacToe_UI::canCompleteWordAI(const string& partial, char& missingCha
     return false;
 }
 
-bool WordTicTacToe_UI::canWinNextMoveAI(Board<char>* board, char aiSymbol, int& winX, int& winY, char& winChar) {
+bool Word_Tic_Tac_Toe_UI::canWinNextMoveAI(Board<char>* board, char aiSymbol, int& winX, int& winY, char& winChar) {
     vector<vector<char>> current = board->get_board_matrix();
 
     for (int i = 0; i < 3; i++) {
@@ -199,7 +201,7 @@ bool WordTicTacToe_UI::canWinNextMoveAI(Board<char>* board, char aiSymbol, int& 
     return false;
 }
 
-bool WordTicTacToe_UI::getLettersThatCreateWords(Board<char>* board, char& result, int& x, int& y, char& blockChar) {
+bool Word_Tic_Tac_Toe_UI::getLettersThatCreateWords(Board<char>* board, char& result, int& x, int& y, char& blockChar) {
     do
     {
         // random nun
@@ -217,7 +219,7 @@ bool WordTicTacToe_UI::getLettersThatCreateWords(Board<char>* board, char& resul
 
 
 
-Move<char>* WordTicTacToe_UI::getAIMove(Player<char>* player)
+Move<char>* Word_Tic_Tac_Toe_UI::getAIMove(Player<char>* player)
 {
     loadAIDictionary();
 
@@ -250,9 +252,7 @@ Move<char>* WordTicTacToe_UI::getAIMove(Player<char>* player)
     }
 }
 
-Move<char>* WordTicTacToe_UI::get_move(Player<char>* player)
-{
-
+Move<char>* Word_Tic_Tac_Toe_UI::get_move(Player<char>* player) {
     if (player->get_type() == PlayerType::COMPUTER)
     {
         return getAIMove(player);
@@ -267,21 +267,35 @@ Move<char>* WordTicTacToe_UI::get_move(Player<char>* player)
     cout << "    " << "|--------------------------------------|\n";
     cout << "    " << "|           " << player->get_name() << "'s TURN             |\n";
     cout << "    " << "|--------------------------------------|\n";
-    cout << "    " << "| Enter position (row col 0-2): ";
+    cout << "    " << "|     Enter position (row col 0-2):    |\n";
 
-    cin >> x >> y;
+    bool num = false;
+    while (!num) {
+        if (!(cin >> x >> y)) {
+            cout << "     | Pleas Enter Numbers (0 - 2)      |\n";
+            cin.clear();
+            cin.ignore(1000, '\n');
+            continue ;
+        }
 
-    while (x < 0 || x > 2 || y < 0 || y > 2){
-        cout << "    " << "|      Please enter numbers 0-2: ";
-        cin >> x >> y;
+        if (x < 0 || x > 2 || y < 0 || y > 2){
+            cout << "    " << "|      Please enter numbers 0-2: ";
+            cin.ignore(1000, '\n');
+            continue;
+        }
+
+        if (current_board[x][y] != ' ') {
+            cout << "    " << "|    Position occupied! Try again.  |\n";
+            cin.ignore(1000, '\n');
+            continue;
+        }
+
+        num = true;
     }
+
+    cin.ignore(1000, '\n');
+
     cout << "    " << "|--------------------------------------|\n\n";
-
-    while (current_board[x][y] != ' ') {
-        cout << "    " << "|    Position occupied! Try again.  |\n";
-        cout << "    " << "|      Please enter numbers 0-2: ";
-        cin >> x >> y;
-    }
 
     cout << "    " << "| Enter letter (A-Z): ";
     cin >> letter;
@@ -300,7 +314,6 @@ Move<char>* WordTicTacToe_UI::get_move(Player<char>* player)
 
     return new Move<char>(x, y, toupper(letter[0]));
 }
-
-Player<char>* WordTicTacToe_UI::create_player(string& name, char symbol, PlayerType type) {
+Player<char>* Word_Tic_Tac_Toe_UI::create_player(string& name, char symbol, PlayerType type) {
     return new Player<char>(name, symbol, type);
 }
