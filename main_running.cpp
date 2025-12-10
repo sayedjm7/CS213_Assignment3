@@ -24,11 +24,18 @@
 #include <string>
 #include "SUS_game.h"
 #include "Inverse_XO_Classes.h"
+#include "X_O_4x4_Game.h"
 #include "XO_4x4_Game.h"
 #include "GameEight.h"
 #include "Numerical Tic-Tac-Toe.h"
 #include "Obstacles_game.h"
 #include "XO_Classes.h"
+#include "WordTicTacToe_Board.h"
+#include "WordTicTacToe_UI.h"
+#include "Diamond Tic-Tac-Toe.h"
+
+
+
 #include "Word_Tic_Tac_Toe.h"
 #include "Word_Tic_Tac_Toe_UI.h"
 #include "5_x_5_Tic_Tac_Toe.h"
@@ -62,18 +69,60 @@ void SUS() {
 }
 
 void Misere_Tic_Tac_Toe() {
-    srand(static_cast<unsigned int>(time(0)));
-    Inverse_XO_UI ui;
-    Player<char>** players = ui.setup_players();
-    Inverse_XO_Board board;
-    GameManager<char> manager(&board, players, &ui);
-    manager.run();
+    srand(static_cast<unsigned int>(time(0)));  // Seed RNG
+
+    // ??????? UI ????? ???? Diamond
+    UI<char>* game_ui = new Inverse_XO_UI();
+
+    // ??????? Board ????? ???? Diamond
+    Board<char>* xo_board = new Inverse_XO_Board();
+
+    // ????? ????????
+    Player<char>** players = game_ui->setup_players();
+
+    // ????? ??????
+    GameManager<char> x_o_game(xo_board, players, game_ui);
+
+    // ????? ??????
+    x_o_game.run();
+
+    // ????? ???????
+    delete xo_board;
+
     for (int i = 0; i < 2; ++i) {
         delete players[i];
     }
     delete[] players;
 }
 
+
+void diamond() {
+    srand(static_cast<unsigned int>(time(0)));  // Seed RNG
+
+    // ??????? UI ????? ???? Diamond
+    UI<char>* game_ui = new diamond_XO_UI();
+
+    // ??????? Board ????? ???? Diamond     diamond_XO_UI
+    Board<char>* xo_board = new diamond_XO_Board();
+
+    // ????? ????????
+    Player<char>** players = game_ui->setup_players();
+
+    // ????? ??????
+    GameManager<char> x_o_game(xo_board, players, game_ui);
+
+    // ????? ??????
+    x_o_game.run();
+
+    // ????? ???????
+    delete xo_board;
+
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
+    delete[] players;
+
+}
 void FourByFour() {
     srand(static_cast<unsigned int>(time(0)));
     XO_GameSeven_UI ui;
@@ -103,6 +152,8 @@ void GameEight() {
     }
     delete[] players;
 }
+
+
 
 void Numerical_Tic_Tac_Toe() {
     srand(static_cast<unsigned int>(time(0)));
@@ -143,7 +194,12 @@ void Inf () {
     for (int i = 0; i < 2; ++i) {
         delete players[i];
     }
+
+
     delete[] players;
+
+
+
 }
 
 // Word Tic-tac-toe
@@ -243,25 +299,26 @@ void Memory_game() {
 
 
 void ava() {
-    cout << "    " << "|--------------------------------------|\n" ;
-    cout << "    " << "|            GAME SELECTION            |\n" ;
-    cout << "    " << "|--------------------------------------|\n" ;
-    cout << "    " << "|  1.      SUS Game                    |\n" ;
-    cout << "    " << "|  2.      Misere Tic-Tac-Toe          |\n" ;
-    cout << "    " << "|  3.      4x4 Tic-Tac-Toe             |\n" ;
-    cout << "    " << "|  4.      Pyramid Game                |\n" ;
-    cout << "    " << "|  5.      Numerical Tic-Tac-Toe       |\n" ;
-    cout << "    " << "|  6.      Obstacle Game               |\n" ;
-    cout << "    " << "|  7.      Infinity Tic-Tac-Toe        |\n" ;
-    cout << "    " << "|  8.      WordTicTacToe_Board         |\n" ;
-    cout << "    " << "|  9.      Four_in_A_Row               |\n" ;
-    cout << "    " << "|  10.     Memory_Tic_Tac_Toe          |\n" ;
-    cout << "    " << "|  11.     5 x 5 Tic Tac Toe           |\n" ;
-    cout << "    " << "|  12.     Ultimate Tic Tac Toe        |\n" ;
-    cout << "    " << "|--------------------------------------|\n" ;
-    cout << "    " << "Enter your choice (1-12): ";
-  
-   
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|            GAME SELECTION            |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "|  1.      SUS Game                    |\n";
+    cout << "    " << "|  2.      Misere Tic-Tac-Toe          |\n";
+    cout << "    " << "|  3.      4x4 Tic-Tac-Toe             |\n";
+    cout << "    " << "|  4.      Pyramid Game                |\n";
+    cout << "    " << "|  5.      Numerical Tic-Tac-Toe       |\n";
+    cout << "    " << "|  6.      Obstacle Game               |\n";
+    cout << "    " << "|  7.      Infinity Tic-Tac-Toe        |\n";
+    cout << "    " << "|  8.      WordTicTacToe_Board         |\n";
+    cout << "    " << "|  9.      Four_in_A_Row               |\n";
+    cout << "    " << "|  10.     Memory_Tic_Tac_Toe          |\n";
+    cout << "    " << "|  11.     5 x 5 Tic Tac Toe           |\n";
+    cout << "    " << "|  12.     Ultimate Tic Tac Toe        |\n";
+    cout << "    " << "|  13.     Diamond Tic Tac Toe         |\n";
+    cout << "    " << "|--------------------------------------|\n";
+    cout << "    " << "Enter your choice (1-13): ";
+
+
 }
 
 void start() {
@@ -290,8 +347,8 @@ int main() {
 
         cin >> game_choice;
         bool same_game = true;
-        while (same_game){
-            switch (game_choice) {
+        while (same_game) {
+          
                 case 1:
                     SUS();
                     break;
@@ -327,6 +384,9 @@ int main() {
                     break; case 12:
                     Ultimate_Tic_Tac_Toe();
                     break;
+                 case 13:
+                  diamond();
+                   break;
                 default:
                     cout << "    |------------------------------------------|\n";
                     cout << "    |            INVALID SELECTION             |\n";
