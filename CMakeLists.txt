@@ -1,4 +1,5 @@
-cmake_minimum_required(VERSION 4.0)
+cmake_minimum_required(VERSION 3.20)
+
 project(CS213_Assignment3_2)
 
 set(CMAKE_CXX_STANDARD 14)
@@ -22,7 +23,7 @@ add_executable(CS213_Assignment3_2
         WordTicTacToe_Board.h
         WordTicTacToe_UI.cpp
         WordTicTacToe_UI.h
-        X_O_4×4_Game.h
+        X_O_4x4_Game.h
         XO_Classes.cpp
         XO_Classes.h
-        XO_Demo.cpp)
+        XO_Demo.cpp "Diamond Tic-Tac-Toe.h" "Diamond Tic-Tac-Toe.cpp")
