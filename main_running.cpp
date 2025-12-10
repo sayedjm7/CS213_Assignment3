@@ -2,38 +2,19 @@
 //========== Asignment Info =======
 // Name: Zyad Ahmed Abuelyazed Ameen
 // ID: 20240208
-// Task: Sus_game & group games
+// Task: game 1, 2 & group games
 //
 // Name: Omar Osama Othman
 // ID: 20240843
-// Task: 4*4 game & game 8 & group games
+// Task: game 7, 8 & game 8 & group games
 //
 // Name: Omar Khaled Eid
 // ID: 20240368
-// Task: Misere game & group games
+// Task: game 5, 6  & group games
 //
-// Name: Sayed Mohammed Sayed El-badawy
+// Name: Sayed Mohammed Sayed El-badawy Mohamed
 // ID: 20240255
-// Task: Words Tic-Tac-Toe
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Task: game 3,4  & group games
 
 
 #include <iostream>
@@ -44,6 +25,7 @@
 #include "SUS_game.h"
 #include "Inverse_XO_Classes.h"
 #include "X_O_4x4_Game.h"
+#include "XO_4x4_Game.h"
 #include "GameEight.h"
 #include "Numerical Tic-Tac-Toe.h"
 #include "Obstacles_game.h"
@@ -54,10 +36,22 @@
 
 
 
+#include "Word_Tic_Tac_Toe.h"
+#include "Word_Tic_Tac_Toe_UI.h"
+#include "5_x_5_Tic_Tac_Toe.h"
+#include "5_x_5_Tic_Tac_Toe_UI.h"
+#include "four_in_row.h"
+#include "Memory_Tic_Tac_Toe.h"
+#include "Memory_Tic_Tac_Toe.h"
+#include "Memory_Tic_Tac_Toe.h"
+#include "Memory_Tic_Tac_Toe.h"
+#include <cstdlib>
+#include <ctime>
+#include "Ultimate_Tic_Tac_Toe.h"
+#include "Ultimate_UI.h"
 
 using namespace std;
 
-// Word Tic-tac-toe
 
 void SUS() {
     srand(static_cast<unsigned int>(time(0)));
@@ -157,10 +151,7 @@ void GameEight() {
         delete players[i];
     }
     delete[] players;
-    // cout << "DONE COMMENT\n";
-
-
- }
+}
 
 
 
@@ -168,7 +159,7 @@ void Numerical_Tic_Tac_Toe() {
     srand(static_cast<unsigned int>(time(0)));
     Numaric_XO_UI ui;
     Player<int>** players = ui.setup_players();
-	Numaric_XO_Board board;
+    Numaric_XO_Board board;
     GameManager<int> manager(&board, players, &ui);
     manager.run();
     for (int i = 0; i < 2; ++i) {
@@ -178,17 +169,17 @@ void Numerical_Tic_Tac_Toe() {
 }
 
 void Obstacle_game(){
-  srand(static_cast<unsigned int>(time(0)));
-      obstacle_ui ui;
-      Player<char>** players = ui.setup_players();
-      obstacle_board board;
+    srand(static_cast<unsigned int>(time(0)));
+    obstacle_ui ui;
+    Player<char>** players = ui.setup_players();
+    obstacle_board board;
 
-      GameManager<char> manager(&board, players, &ui);
-      manager.run();
+    GameManager<char> manager(&board, players, &ui);
+    manager.run();
 
-      for (int i = 0; i < 2; ++i) {
-          delete players[i];
-      }
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
     delete[] players;
 }
 
@@ -211,11 +202,12 @@ void Inf () {
 
 }
 
+// Word Tic-tac-toe
 void WordTicTacToe() {
     srand(static_cast<unsigned int>(time(0)));
 
-    WordTicTacToe_Board *board = new WordTicTacToe_Board();
-    WordTicTacToe_UI *ui = new WordTicTacToe_UI();
+    Word_Tic_Tac_Toe *board = new Word_Tic_Tac_Toe();
+    Word_Tic_Tac_Toe_UI *ui = new Word_Tic_Tac_Toe_UI();
 
     Player<char> **players = ui->setup_players();
     GameManager<char> manager(board, players, ui);
@@ -229,6 +221,81 @@ void WordTicTacToe() {
     delete board;
     delete ui;
 }
+
+//  5x5 Tic Tac Toe
+void FiveByFive_Game() {
+    srand(static_cast<unsigned int>(time(0)));
+    Five__Five_Board* board = new Five__Five_Board();
+    Five_And_Five_UI* ui = new Five_And_Five_UI();
+    Player<char>** players = ui->setup_players();
+    GameManager<char> manager(board, players, ui);
+    manager.run();
+    // Cleanup
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
+    delete[] players;
+    delete board;
+    delete ui;
+}
+
+
+void Ultimate_Tic_Tac_Toe() {
+    srand(static_cast<unsigned int>(time(0)));
+    Ultimate_UI ui;
+    ui.display_welcome_message();
+
+    Player<char>** players = ui.setup_players();
+
+    Ultimate_Board board;
+    ui.set_ultimate_board(&board);
+    players[0]->set_board_ptr(&board);
+    players[1]->set_board_ptr(&board);
+    Player<char>* playerArray[2] = {players[0], players[1]};
+    GameManager<char> gameManager(&board, playerArray, &ui);
+    gameManager.run();
+    for (int i = 0; i < 2; ++i)
+    {
+        delete players[i];
+    }
+    delete[] players;
+
+}
+
+void four_in_row() {
+    srand(static_cast<unsigned int>(time(0)));
+
+    four_in_row_board *board = new four_in_row_board();
+    four_in_row_ui *ui = new four_in_row_ui();
+
+    Player<char> **players = ui->setup_players();
+    GameManager<char> manager(board, players, ui);
+    manager.run();
+
+    // Cleanup
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
+    delete[] players;
+    delete board;
+    delete ui;
+}
+
+void Memory_game() {
+    srand(static_cast<unsigned int>(time(0)));
+
+    memory_ui ui;
+    Player<char>** players = ui.setup_players();
+    memory_board board;
+
+    GameManager<char> manager(&board, players, &ui);
+    manager.run();
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
+    delete[] players;
+}
+
 
 
 void ava() {
@@ -281,43 +348,54 @@ int main() {
         cin >> game_choice;
         bool same_game = true;
         while (same_game) {
-            switch (game_choice) {
-            case 1:
-                SUS();
-                break;
-            case 2:
-                Misere_Tic_Tac_Toe();
-                break;
-            case 3:
-                FourByFour();
-                break;
-            case 4:
-                GameEight();
-                break;
-            case 5:
-                Numerical_Tic_Tac_Toe();
-                break;
-            case 6:
-                Obstacle_game();
-                break;
-            case 7:
-                Inf();
-                break;
-            case 8:
-                WordTicTacToe();
-                break;
-            case 13:
-                diamond();
-                break;
-            default:
-                cout << "    |------------------------------------------|\n";
-                cout << "    |            INVALID SELECTION             |\n";
-                cout << "    |------------------------------------------|\n";
-                cout << "    |    Please enter a number from 1 to 13    |\n";
-                cout << "    |------------------------------------------|\n";
-                cout << "    Choice: ";
-                cin >> game_choice;
-                continue;
+          
+                case 1:
+                    SUS();
+                    break;
+                case 2:
+                    Misere_Tic_Tac_Toe();
+                    break;
+                case 3:
+                    FourByFour();
+                    break;
+                case 4:
+                    GameEight();
+                    break;
+                case 5:
+                    Numerical_Tic_Tac_Toe();
+                    break;
+                case 6:
+                    Obstacle_game();
+                    break;
+                case 7:
+                    Inf();
+                    break;
+                case 8:
+                    WordTicTacToe();
+                    break;      
+                case 9:
+                    four_in_row();
+                    break;
+                case 10:
+                    Memory_game();
+                    break;
+                case 11:
+                    FiveByFive_Game();
+                    break; case 12:
+                    Ultimate_Tic_Tac_Toe();
+                    break;
+                 case 13:
+                  diamond();
+                   break;
+                default:
+                    cout << "    |------------------------------------------|\n";
+                    cout << "    |            INVALID SELECTION             |\n";
+                    cout << "    |------------------------------------------|\n";
+                    cout << "    |    Please enter a number from 1 to 12    |\n";
+                    cout << "    |------------------------------------------|\n";
+                    cout << "    Choice: ";
+                    cin >> game_choice;
+                    continue;
 
             }
             cout << "\n           Press Enter to return to main menu...";

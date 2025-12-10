@@ -62,7 +62,7 @@ public:
      * @return true if the move is valid and applied, false otherwise.
      */
     virtual bool update_board(Move<T>* move) = 0;
-    virtual bool is_valid_move(int ox, int oy, int nx, int ny) {
+    virtual bool is_valid_move(int ox, int oy, int nx, int ny,PlayerType p) {
         return false;
     } ;
     /** @brief Check if a player has won. */
@@ -148,6 +148,9 @@ public:
 
     /** @brief Get the player's symbol. */
     T get_symbol() const { return symbol; }
+    void set_symbol(char sym) {
+        symbol = sym;
+    }
 
     /** @brief Get a pointer to the game board. */
     Board<T>* get_board_ptr() const { return boardPtr; }
@@ -302,8 +305,8 @@ public:
                     cout << "    " << "|--------------------------------------|\n";
                     cout << "    " << "|                 VICTORY!             |\n";
                     cout << "    " << "|--------------------------------------|\n";
-                    cout << "    " << "|  Winner: " << setw(26) << left << currentPlayer->get_name() << "|\n";
-                    cout << "    " << "|  Symbol: " << setw(26) << left << string(1, currentPlayer->get_symbol()) << "|\n";
+                    cout << "    " << "|  Winner: " << setw(26) << left << currentPlayer->get_name() << "  |\n";
+                    cout << "    " << "|  Symbol: " << setw(26) << left << string(1, currentPlayer->get_symbol()) << "  |\n";
                     cout << "    " << "|                                      |\n";
                     cout << "    " << "|             Congratulations!         |\n";
                     cout << "    " << "|--------------------------------------|\n\n\n";
@@ -314,8 +317,8 @@ public:
                     cout << "    " << "|--------------------------------------|\n";
                     cout << "    " << "|                 VICTORY!             |\n";
                     cout << "    " << "|--------------------------------------|\n";
-                    cout << "    " << "|  Winner: " << setw(26) << left << players[1 - i]->get_name() << "|\n";
-                    cout << "    " << "|  Symbol: " << setw(26) << left << string(1, players[1 - i]->get_symbol()) << "|\n";
+                    cout << "    " << "|  Winner: " << setw(26) << left << players[1 - i]->get_name() << "  |\n";
+                    cout << "    " << "|  Symbol: " << setw(26) << left << string(1, players[1 - i]->get_symbol()) << "  |\n";
                     cout << "    " << "|                                      |\n";
                     cout << "    " << "|             Congratulations!         |\n";
                     cout << "    " << "|--------------------------------------|\n\n\n";

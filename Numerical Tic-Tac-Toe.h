@@ -17,7 +17,7 @@ public:
    // template <typename T>
     Player<int>** setup_players() override;
     void display_message(string m) ;
-      
+
     void display_welcome_message();
     
 };
