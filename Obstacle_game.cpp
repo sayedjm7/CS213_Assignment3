@@ -18,7 +18,7 @@ obstacle_board::obstacle_board() :Board(6, 6) { // 6 * 6 board game
         for (auto& cell : row)
             cell = blank_symbol;
 }
-bool obstacle_board::is_valid_move(int ox, int oy, int nx, int ny) {
+bool obstacle_board::is_valid_move(int ox, int oy, int nx, int ny,PlayerType p) {
     return true;
 }
 bool obstacle_board::update_board(Move<char>* move) {

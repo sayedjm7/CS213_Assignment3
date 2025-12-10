@@ -2,24 +2,19 @@
 //========== Asignment Info =======
 // Name: Zyad Ahmed Abuelyazed Ameen
 // ID: 20240208
-// Task: Sus_game & group games
+// Task: game 1, 2 & group games
 //
 // Name: Omar Osama Othman
 // ID: 20240843
-// Task: 4*4 game & game 8 & group games
+// Task: game 7, 8 & game 8 & group games
 //
 // Name: Omar Khaled Eid
 // ID: 20240368
-// Task: Misere game & group games
+// Task: game 5, 6  & group games
 //
 // Name: Sayed Mohammed Sayed El-badawy Mohamed
 // ID: 20240255
-// Task: Words Tic-Tac-Toe & 5 x 5 Tic Tac Toe & group games
-
-
-
-
-
+// Task: game 3,4  & group games
 
 
 #include <iostream>
@@ -29,7 +24,7 @@
 #include <string>
 #include "SUS_game.h"
 #include "Inverse_XO_Classes.h"
-#include "X_O_4×4_Game.h"
+#include "XO_4x4_Game.h"
 #include "GameEight.h"
 #include "Numerical Tic-Tac-Toe.h"
 #include "Obstacles_game.h"
@@ -95,8 +90,6 @@ void FourByFour() {
 
 }
 
-
-
 void GameEight() {
     srand(static_cast<unsigned int>(time(0)));
     Pry_UI ui;
@@ -109,16 +102,13 @@ void GameEight() {
         delete players[i];
     }
     delete[] players;
-    // cout << "DONE COMMENT\n";
-
-
- }
+}
 
 void Numerical_Tic_Tac_Toe() {
     srand(static_cast<unsigned int>(time(0)));
     Numaric_XO_UI ui;
     Player<int>** players = ui.setup_players();
-	Numaric_XO_Board board;
+    Numaric_XO_Board board;
     GameManager<int> manager(&board, players, &ui);
     manager.run();
     for (int i = 0; i < 2; ++i) {
@@ -128,22 +118,19 @@ void Numerical_Tic_Tac_Toe() {
 }
 
 void Obstacle_game(){
-  srand(static_cast<unsigned int>(time(0)));
-      obstacle_ui ui;
-      Player<char>** players = ui.setup_players();
-      obstacle_board board;
+    srand(static_cast<unsigned int>(time(0)));
+    obstacle_ui ui;
+    Player<char>** players = ui.setup_players();
+    obstacle_board board;
 
-      GameManager<char> manager(&board, players, &ui);
-      manager.run();
+    GameManager<char> manager(&board, players, &ui);
+    manager.run();
 
-      for (int i = 0; i < 2; ++i) {
-          delete players[i];
-      }
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
     delete[] players;
 }
-
-
-
 
 void Inf () {
     srand(static_cast<unsigned int>(time(0)));  // Seed the random number generator
@@ -254,6 +241,7 @@ void Memory_game() {
 }
 
 
+
 void ava() {
     cout << "    " << "|--------------------------------------|\n" ;
     cout << "    " << "|            GAME SELECTION            |\n" ;
@@ -275,9 +263,6 @@ void ava() {
   
    
 }
-
-
-
 
 void start() {
     cout << string(49, '=') << "\n";
@@ -337,7 +322,7 @@ int main() {
                 case 10:
                     Memory_game();
                     break;
-                  case 11:
+                case 11:
                     FiveByFive_Game();
                     break; case 12:
                     Ultimate_Tic_Tac_Toe();
@@ -391,4 +376,3 @@ int main() {
     }
     return 0;
 }
-
