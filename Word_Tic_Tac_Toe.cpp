@@ -1,8 +1,8 @@
-#include "WordTicTacToe_Board.h"
+#include "Word_Tic_Tac_Toe.h"
 #include <iostream>
 #include <iomanip>
 
-WordTicTacToe_Board::WordTicTacToe_Board() : Board(3, 3) {
+Word_Tic_Tac_Toe::Word_Tic_Tac_Toe() : Board(3, 3) {
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
             board[i][j] = ' ';
@@ -11,7 +11,7 @@ WordTicTacToe_Board::WordTicTacToe_Board() : Board(3, 3) {
     loadDictionary();
 }
 
-bool WordTicTacToe_Board::update_board(Move<char>* move) {
+bool Word_Tic_Tac_Toe::update_board(Move<char>* move) {
     int x = move->get_x();
     int y = move->get_y();
 
@@ -24,7 +24,7 @@ bool WordTicTacToe_Board::update_board(Move<char>* move) {
     return false;
 }
 
-bool WordTicTacToe_Board::is_win(Player<char>* player)
+bool Word_Tic_Tac_Toe::is_win(Player<char>* player)
 {
 
     // Check rows
@@ -93,17 +93,17 @@ bool WordTicTacToe_Board::is_win(Player<char>* player)
     return false;
 }
 
-bool WordTicTacToe_Board::is_lose(Player<char>* player)
+bool Word_Tic_Tac_Toe::is_lose(Player<char>* player)
 {
     return false;
 }
 
-bool WordTicTacToe_Board::is_draw(Player<char>* player)
+bool Word_Tic_Tac_Toe::is_draw(Player<char>* player)
 {
     return (n_moves == 9 && !is_win(player));
 }
 
-bool WordTicTacToe_Board::game_is_over(Player<char>* player)
+bool Word_Tic_Tac_Toe::game_is_over(Player<char>* player)
 {
     return is_win(player) || is_draw(player);
 }

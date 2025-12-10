@@ -18,19 +18,22 @@ add_executable(CS213_Assignment3_2
         Obstacles_game.h
         SUS_game.cpp
         SUS_game.h
-        WordTicTacToe_Board.cpp
-        WordTicTacToe_Board.h
-        WordTicTacToe_UI.cpp
-        WordTicTacToe_UI.h
+        Word_Tic_Tac_Toe.cpp
+        Word_Tic_Tac_Toe.h
+        Word_Tic_Tac_Toe_UI.cpp
+        Word_Tic_Tac_Toe_UI.h
         X_O_4×4_Game.h
         XO_Classes.cpp
         XO_Classes.h
         XO_Demo.cpp
-        FiveByFive_Board.cpp
-        FiveByFive_Board.h
-        FiveByFive_Board__UI.cpp
-        FiveByFive_Board__UI.h
-)
+        5_x_5_Tic_Tac_Toe.cpp
+        5_x_5_Tic_Tac_Toe.h
+        5_x_5_Tic_Tac_Toe_UI.cpp
+        5_x_5_Tic_Tac_Toe_UI.h
         four_in_row.h
         four_in_row.cpp
-        Memory_Tic_Tac_Toe.cpp)
+        Memory_Tic_Tac_Toe.cpp
+        Ultimate_Tic_Tac_Toe.cpp
+        Ultimate_Tic_Tac_Toe.h
+        Ultimate_UI.cpp
+        Ultimate_UI.h)
