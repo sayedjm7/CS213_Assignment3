@@ -27,7 +27,6 @@ void Word_Tic_Tac_Toe_UI::display_welcome_message() {
     cout << "    " << "|   words formed                       |\n";
     cout << "    " << "|--------------------------------------|\n\n";
 
-
 }
 
 

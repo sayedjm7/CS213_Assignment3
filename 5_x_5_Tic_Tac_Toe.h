@@ -15,6 +15,7 @@ public:
     int CountOFSeq(char sym);
     void display_board();
 
+
 private:
     int num_moves;
 };

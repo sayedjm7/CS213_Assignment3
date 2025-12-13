@@ -14,6 +14,7 @@ four_in_row_ui::four_in_row_ui() : UI<char>("", 3) {
     display_welcome_message();
 }
 
+
 void four_in_row_ui::display_welcome_message() {
     cout << "    " << "|--------------------------------------|\n";
     cout << "    " << "|             FOUR IN A ROW            |\n";

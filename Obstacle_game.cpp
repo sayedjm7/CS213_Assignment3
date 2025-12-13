@@ -24,8 +24,6 @@ bool obstacle_board::is_valid_move(int ox, int oy, int nx, int ny,PlayerType p) 
 bool obstacle_board::update_board(Move<char>* move) {
     int x = move->get_x();
     int y = move->get_y();
-
-
     char mark = move->get_symbol();
 
 

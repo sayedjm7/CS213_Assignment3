@@ -17,7 +17,6 @@ private:
     char blank_symbol = '.';
 
 public:
-    
     int num = 0;
     int p1_score = 0;
     int p2_score = 0;

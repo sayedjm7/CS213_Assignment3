@@ -17,6 +17,7 @@ Numaric_XO_Board::Numaric_XO_Board() : Board(3, 3) {
         for (auto& c : row)
             c = 0;
 }
+
 bool Numaric_XO_Board::is_there(const vector<int>& nums, int value) {
     return find(nums.begin(), nums.end(), value) != nums.end();
 }

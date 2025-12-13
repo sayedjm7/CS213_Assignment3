@@ -21,7 +21,6 @@ class XO_GameSeven_Board : public Board<char> {
 private:
     char blank_symbol = ' ';
 public:
-
     XO_GameSeven_Board();
 
     bool update_board(Move<char>* move);

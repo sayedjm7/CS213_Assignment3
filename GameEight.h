@@ -19,6 +19,7 @@ public:
     bool game_is_over(Player<char> *) override;
 };
 
+
 class Pry_UI : public UI<char> {
 private:
     int x, y;

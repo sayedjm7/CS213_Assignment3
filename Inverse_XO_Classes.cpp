@@ -23,6 +23,7 @@ bool Inverse_XO_Board::update_board(Move<char>* move) {
         n_moves++;
         return true;
     }
+
     return false;
 }
 

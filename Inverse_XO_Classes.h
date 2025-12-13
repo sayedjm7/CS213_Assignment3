@@ -23,6 +23,7 @@ public:
 };
 
 
+
 class Inverse_XO_UI : public UI<char> {
 public:
     Inverse_XO_UI();

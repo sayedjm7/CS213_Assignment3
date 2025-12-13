@@ -18,7 +18,6 @@ Ultimate_Board::Ultimate_Board() : Board<char>(9, 9) {
     isNextBoardForced = false;
     n_moves = 0;
 }
-
 bool Ultimate_Board::update_board(Move<char>* move) {
     int x = move->get_x();
     int y = move->get_y();

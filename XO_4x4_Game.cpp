@@ -23,6 +23,7 @@ XO_GameSeven_Board::XO_GameSeven_Board() : Board(4, 4) {
             board[i][j] = blank_symbol;
         }
     }
+
 };
 
 bool XO_GameSeven_Board::update_board(Move<char>* move) {

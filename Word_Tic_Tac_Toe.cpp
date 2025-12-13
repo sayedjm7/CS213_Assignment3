@@ -17,6 +17,7 @@ bool Word_Tic_Tac_Toe::update_board(Move<char>* move) {
 
     if (board[x][y] == ' ')
     {
+
         board[x][y] = toupper(move->get_symbol());
         n_moves++;
         return true;

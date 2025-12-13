@@ -9,6 +9,7 @@ private:
     Ultimate_Board* ultimateBoard;
 
 public:
+
     Ultimate_UI();
 
     Move<char>* get_move(Player<char>* player) override;

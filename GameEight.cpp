@@ -19,6 +19,7 @@ Pry_Board::Pry_Board() : Board<char>(3,5) {
 
 // method the Board class
 
+
 bool Pry_Board::is_win(Player<char>* player) {
     const char sym = player->get_symbol();
 

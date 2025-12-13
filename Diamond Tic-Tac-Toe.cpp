@@ -24,6 +24,7 @@ bool diamond_XO_Board::update_board(Move<char>* move) {
         n_moves++;
         return true;
     }
+
     return false;
 }
 bool diamond_XO_Board::is_horizontal_four(char m) {

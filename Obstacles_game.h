@@ -19,7 +19,6 @@ public:
 
 };
 
-
 class obstacle_board : public Board<char>{
 private:
     char blank_symbol = '.';

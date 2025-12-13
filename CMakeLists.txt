@@ -36,6 +36,7 @@ add_executable(CS213_Assignment3_2
         Ultimate_Tic_Tac_Toe.cpp
         Ultimate_Tic_Tac_Toe.h
         Ultimate_UI.cpp
+        XO_4x4_Game.h
         Ultimate_UI.h
         Word_Tic_Tac_Toe_UI.cpp
         Word_Tic_Tac_Toe_UI.h
@@ -44,4 +45,4 @@ add_executable(CS213_Assignment3_2
         XO_Classes.h
         XO_Demo.cpp 
         "Diamond Tic-Tac-Toe.h" 
-        "Diamond Tic-Tac-Toe.cpp" "XO_4x4_Game.h")
+        "Diamond Tic-Tac-Toe.cpp")

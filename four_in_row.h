@@ -11,6 +11,7 @@ private:
     char blank_symbol = '.';
 
 public:
+
     four_in_row_board();
     bool update_board(Move<char>* move) override;
 

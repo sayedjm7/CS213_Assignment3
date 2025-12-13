@@ -7,7 +7,6 @@
 
 using namespace std;
 
-
 memory_board::memory_board() : Board(3, 3) {
     // Initialize all cells with blank_symbol
     for (auto& row : board)

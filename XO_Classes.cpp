@@ -26,6 +26,7 @@ bool X_O_Board::update_board(Move<char>* move) {
     int y = move->get_y();
     char mark = move->get_symbol();
 
+
     n_moves++;
     board[x][y] = toupper(mark);
 

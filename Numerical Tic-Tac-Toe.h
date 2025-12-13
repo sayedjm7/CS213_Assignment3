@@ -19,7 +19,6 @@ public:
     void display_message(string m) ;
 
     void display_welcome_message();
-    
 };
 class Numaric_XO_Board : public Board<int> {
 private:

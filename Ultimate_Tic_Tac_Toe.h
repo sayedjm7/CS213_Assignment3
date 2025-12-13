@@ -12,7 +12,6 @@ private:
 
 public:
     Ultimate_Board();
-
     bool update_board(Move<char>* move) override;
     bool is_win(Player<char>* player) override;
     bool is_draw(Player<char>* player) override;

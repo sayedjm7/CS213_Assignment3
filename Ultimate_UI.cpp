@@ -9,6 +9,7 @@ Ultimate_UI::Ultimate_UI() : UI<char>("", 3) {
     ultimateBoard = nullptr;
 }
 
+
 void Ultimate_UI::display_welcome_message() {
     cout << "\n    " << string(56, '=') << "\n";
     cout << "    |                 ULTIMATE TIC-TAC-TOE                 |\n";

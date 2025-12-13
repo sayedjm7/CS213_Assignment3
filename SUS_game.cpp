@@ -12,7 +12,6 @@ sus_game_board::sus_game_board() : Board(3, 3) {
             cell = blank_symbol;
 }
 
-
 sus_game_board::~sus_game_board() {
     cout << "    " << "|--------------------------------------|\n";
     cout << "    " << "|              FINAL SCORE             |\n";

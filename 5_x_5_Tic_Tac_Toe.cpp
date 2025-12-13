@@ -15,6 +15,7 @@ Five__Five_Board::Five__Five_Board() : Board(5, 5)
     }
 }
 
+
 bool Five__Five_Board::update_board(Move<char>* move)
 {
     int x = move->get_x();
