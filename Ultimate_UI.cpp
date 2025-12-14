@@ -76,11 +76,11 @@ Move<char>* Ultimate_UI::get_human_move(Player<char>* player) {
     cout << "           " << string(46, '=') << "\n";
     cout << "           |                                     |\n";
     cout << "           |    " << player->get_symbol() << " placed at (" << smallRow << "," << smallCol
-         << ")          |\n";
+    << ")          |\n";
     cout << "           |    In small board (" << bigRow << "," << bigCol << ")        |\n";
     cout << "           |                                     |\n";
     cout << "           |      Next player goes to board (" << smallRow << ","
-         << smallCol << ")    |\n";
+    << smallCol << ")    |\n";
     cout << "           |                                     |\n";
     cout << "           " << string(46, '=') << "\n";
 
@@ -159,7 +159,7 @@ Move<char>* Ultimate_UI::get_computer_move(Player<char>* player) {
         cout << "           |        FORCED MOVE DETECTED        |\n";
         cout << "           " << string(36, '-') << "\n";
         cout << "           |  AI must play in big board (" << forcedBigRow
-             << "," << forcedBigCol << ") |\n";
+            << "," << forcedBigCol << ") |\n";
         cout << "           " << string(36, '-') << "\n";
     }
 
@@ -172,14 +172,14 @@ Move<char>* Ultimate_UI::get_computer_move(Player<char>* player) {
     cout << "           " << string(46, '=') << "\n";
     cout << "           |                                     |\n";
     cout << "           |    AI played at (" << smallRow << "," << smallCol
-         << ")              |\n";
+        << ")              |\n";
     cout << "           |    In small board (" << bigRow << "," << bigCol
-         << ")            |\n";
+        << ")            |\n";
     cout << "           |                                     |\n";
 
     if (ultimateBoard->is_small_board_available(smallRow, smallCol)) {
         cout << "           |    Next player goes to board (" << smallRow
-                   << "," << smallCol << ")    |\n";    }
+            << "," << smallCol << ")    |\n";    }
     else
     {
         cout << "           |      Next player: ANY available board |\n";
@@ -242,7 +242,7 @@ pair<int, int> Ultimate_UI::get_small_board_coords(int bigRow, int bigCol, Playe
             cout << "           |     CELL ALREADY OCCUPIED!   |\n";
             cout << "           " << string(31, '!') << "\n";
             cout << "           |  Cell (" << sr << "," << sc << ") contains '"
-                 << ultimateBoard->get_cell(globalRow, globalCol) << "'  |\n";
+            << ultimateBoard->get_cell(globalRow, globalCol) << "'  |\n";
             cout << "           " << string(31, '!') << "\n";
             continue;
         }
@@ -295,7 +295,7 @@ pair<int, int> Ultimate_UI::get_big_board_coords(Player<char>* player) {
                 cout << "           |          FORCED MOVE REQUIRED!         |\n";
                 cout << "           " << string(46, '!') << "\n";
                 cout << "           |  You MUST play in BIG BOARD (" << br
-                     << "," << bc << ")      |\n";
+                    << "," << bc << ")      |\n";
                 cout << "           |  (Opponent's previous move)            |\n";
                 cout << "           " << string(46, '!') << "\n";
                 return {br, bc};

@@ -18,9 +18,8 @@ X_O_Board::X_O_Board() : Board(3, 3) {
         for (auto& cell : row)
             cell = blank_symbol;
 }
-bool X_O_Board::is_valid_move(int ox, int oy, int nx, int ny) {
-    return true;
-}
+
+
 bool X_O_Board::update_board(Move<char>* move) {
     int x = move->get_x();
     int y = move->get_y();
@@ -29,11 +28,11 @@ bool X_O_Board::update_board(Move<char>* move) {
     n_moves++;
     board[x][y] = toupper(mark);
 
-
+    // FIFO
     qx.push(x);
     qy.push(y);
 
-    // 00(X)  01(O)  10(X)  20(O)  02(X)  21(O)
+    // 00(X)  01(O)  10(X)  20(O)  02(X)  21(O) --> pop->front()
     if (qx.size() > 6) {
         cout << "    " << "|--------------------------------------|\n";
         cout << "    " << "|        OLDEST MOVE VANISHED!        |\n";
@@ -54,7 +53,7 @@ bool X_O_Board::is_win(Player<char>* player) {
 
     auto all_equal = [&](char a, char b, char c) {
         return a == b && b == c && a != blank_symbol;
-        };
+    };
 
     // Check rows and columns
     for (int i = 0; i < rows; ++i) {
@@ -69,6 +68,7 @@ bool X_O_Board::is_win(Player<char>* player) {
 
     return false;
 }
+
 bool X_O_Board::is_draw(Player<char>* player) {
     return (n_moves == 9 && !is_win(player));
 }
@@ -81,8 +81,8 @@ bool X_O_Board::game_is_over(Player<char>* player) {
 
 XO_UI::XO_UI() : UI<char>("", 3) {
     display_welcome_message();
-
 }
+
 void XO_UI::display_welcome_message() {
     cout << "    " << "|--------------------------------------|\n";
     cout << "    " << "|          INFINITY TIC-TAC-TOE        |\n";
@@ -106,7 +106,7 @@ Player<char>* XO_UI::create_player(string& name, char symbol, PlayerType type) {
     cout << "    " << "|             PLAYER CREATED           |\n";
     cout << "    " << "|--------------------------------------|\n";
     cout << "    " << "|  Type:    " << setw(25) << left
-         << (type == PlayerType::HUMAN ? "Human" : "Computer") << "|\n";
+    << (type == PlayerType::HUMAN ? "Human" : "Computer") << "|\n";
     cout << "    " << "|  Name:    " << setw(25) << left << name << "|\n";
     cout << "    " << "|  Symbol:  " << setw(25) << left << symbol << "|\n";
     cout << "    " << "|--------------------------------------|\n";
@@ -168,4 +168,8 @@ Move<char>* XO_UI::get_move(Player<char>* player) {
         while (current_board[x][y] != '.');
     }
     return new Move<char>(x, y, player->get_symbol());
+}
+
+bool X_O_Board::is_valid_move(int ox, int oy, int nx, int ny, PlayerType pt){
+    return true;
 }

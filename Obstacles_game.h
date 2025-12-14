@@ -16,7 +16,6 @@ public:
     virtual Move<char>* get_move(Player<char>* player);
 
     void display_welcome_message();
-
 };
 
 
@@ -29,7 +28,7 @@ public:
     obstacle_board();
 
     bool update_board(Move<char>* move);
-    bool is_valid_move(int ox, int oy, int nx, int ny,PlayerType p) ;
+    bool is_valid_move(int ox, int oy, int nx, int ny,PlayerType p){ return true;}
 
     bool is_win(Player<char>* player);
 

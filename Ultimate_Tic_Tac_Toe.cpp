@@ -20,8 +20,8 @@ Ultimate_Board::Ultimate_Board() : Board<char>(9, 9) {
 }
 
 bool Ultimate_Board::update_board(Move<char>* move) {
-    int x = move->get_x();
-    int y = move->get_y();
+    int x = move->get_x(); // 9*9
+    int y = move->get_y(); // 9*9
     char symbol = move->get_symbol();
 
     if (x < 0 || x >= 9 || y < 0 || y >= 9) {
@@ -30,6 +30,7 @@ bool Ultimate_Board::update_board(Move<char>* move) {
 
     int bigR = x / 3;
     int bigC = y / 3;
+
     int smallR = x % 3;
     int smallC = y % 3;
 
@@ -50,6 +51,7 @@ bool Ultimate_Board::update_board(Move<char>* move) {
             }
         }
     }
+
 
     smallGrids[bigR][bigC][smallR][smallC] = symbol;
     board[x][y] = symbol;
@@ -93,7 +95,8 @@ bool Ultimate_Board::update_board(Move<char>* move) {
                 board[bigR*3 + i][bigC*3 + j] = symbol;
             }
         }
-    } else {
+    }
+    else {
         bool isFull = true;
         for (int i = 0; i < 3 && isFull; i++) {
             for (int j = 0; j < 3; j++) {
@@ -142,7 +145,6 @@ bool Ultimate_Board::is_win(Player<char>* player) {
             display_main_board();
             return true;
         }
-
     }
 
     if (mainGrid[0][0] == sym && mainGrid[1][1] == sym && mainGrid[2][2] == sym) {

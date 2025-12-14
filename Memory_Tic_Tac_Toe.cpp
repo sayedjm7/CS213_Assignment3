@@ -19,6 +19,7 @@ memory_board::memory_board() : Board(3, 3) {
 bool memory_board::is_valid_move(int ox, int oy, int nx, int ny,PlayerType p) {
     return true;
 }
+
 bool memory_board::update_board(Move<char>* move) {
     int x = move->get_x();
     int y = move->get_y();

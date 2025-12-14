@@ -6,7 +6,6 @@
 #include <iomanip>
 #include <cctype>
 #include "BoardGame_Classes.h"
-
 #include <math.h>
 #include <queue>
 #include "Obstacles_game.h"
@@ -18,62 +17,49 @@ obstacle_board::obstacle_board() :Board(6, 6) { // 6 * 6 board game
         for (auto& cell : row)
             cell = blank_symbol;
 }
-bool obstacle_board::is_valid_move(int ox, int oy, int nx, int ny,PlayerType p) {
-    return true;
-}
+
 bool obstacle_board::update_board(Move<char>* move) {
     int x = move->get_x();
     int y = move->get_y();
-
-
     char mark = move->get_symbol();
 
-
-
     // Validate move and apply if valid
-    if (!(x < 0 || x >= 6 || y < 0 || y >= 6) &&
-        (board[x][y] == blank_symbol || mark == 0)) {
+    if ((x < 0 || x >= 6 || y < 0 || y >= 6)) {
+        return false;
+    }
+    if ((board[x][y] != blank_symbol)) {
+        return false;
+    }
 
-        if (mark == 0) { // Undo move
-            n_moves--;
-            board[x][y] = blank_symbol;
 
-        }
-        else {
-            // Apply move
-            n_moves++;
-            board[x][y] = toupper(mark);
-            if (n_moves % 2 == 0 && n_moves != 0) {
-                // make obstacles here ...
-                x = rand() % 5;
-                y = rand() % 5;
-                int t = 2;
-                // putting ## in random places...
-                while (t > 0) {
-                    if (board[x][y] != blank_symbol) {
-                        while (board[x][y] != blank_symbol) {
-                            x = rand() % 5;
-                            y = rand() % 5;
-                            if (board[x][y] == blank_symbol) {
-                                board[x][y] = '#';
-                                break;
-                            }
-                        }
+    n_moves++;
+    board[x][y] = toupper(mark);
 
-                    }
-                    else {
+    if (n_moves % 2 == 0 && n_moves != 0) {
+        // make obstacles here ...
+        x = rand() % 5;
+        y = rand() % 5;
+        int t = 2;
+        // putting ## in random places...
+        while (t > 0) {
+            if (board[x][y] != blank_symbol) {
+                while (board[x][y] != blank_symbol) {
+                    x = rand() % 5;
+                    y = rand() % 5;
+                    if (board[x][y] == blank_symbol) {
                         board[x][y] = '#';
+                        break;
                     }
-                    t--;
                 }
 
             }
+            else {
+                board[x][y] = '#';
+            }
+            t--;
         }
-
-        return true;
-
     }
-    return false;
+    return true;
 }
 
 bool obstacle_board::is_win(Player<char>* player) {
@@ -111,11 +97,9 @@ bool obstacle_board::is_win(Player<char>* player) {
     if (all_equal(board[0][1], board[1][2], board[2][3], board[3][4]) && board[0][1] == sym) {
         return true;
     }
-
     if (all_equal(board[1][2], board[2][3], board[3][4], board[4][5]) && board[1][2] == sym) {
         return true;
     }
-
     if (all_equal(board[0][0], board[1][1], board[2][2], board[3][3]) && board[0][0] == sym) {
         return true;
     }
@@ -151,7 +135,6 @@ bool obstacle_board::is_win(Player<char>* player) {
     if (all_equal(board[1][4], board[2][3], board[3][2], board[4][1]) && board[1][4] == sym) {
         return true;
     }
-
     if (all_equal(board[2][3], board[3][2], board[4][1], board[5][0]) && board[0][1] == sym) {
         return true;
     }
@@ -165,14 +148,11 @@ bool obstacle_board::is_win(Player<char>* player) {
         return true;
     }
 
-
-
     return false;
 }
 bool obstacle_board::is_draw(Player<char>* player) {
     return (n_moves ==  18 && !is_win(player));
 }
-
 bool obstacle_board::game_is_over(Player<char>* player) {
     return is_win(player) || is_draw(player);
 }
@@ -207,7 +187,7 @@ Player<char>* obstacle_ui::create_player(string& name, char symbol, PlayerType t
     cout << "    " << "|             PLAYER CREATED           |\n";
     cout << "    " << "|--------------------------------------|\n";
     cout << "    " << "|  Type:    " << setw(25) << left
-         << (type == PlayerType::HUMAN ? "Human" : "Computer") << "|\n";
+    << (type == PlayerType::HUMAN ? "Human" : "Computer") << "|\n";
     cout << "    " << "|  Name:    " << setw(25) << left << name << "|\n";
     cout << "    " << "|  Symbol:  " << setw(25) << left << symbol << "|\n";
     cout << "    " << "|--------------------------------------|\n\n\n";

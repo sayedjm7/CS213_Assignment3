@@ -16,7 +16,13 @@
 // ID: 20240843
 // Task: 4*4 game & game 8 & group games
 //
-
+//======= Linkes the projects =======
+//
+// GitHub link: https://github.com/sayedjm7/CS213_Assignment3.git
+// YouTube video link:  https://youtu.be/fczTCUx_4bE?si=PVninLMrA7LKOTsS
+// Docx report file: https://drive.google.com/file/d/1vuHRruU4nvSi32UQ2z1_PoQdR02v7MOn/view?usp=sharing
+//
+//==================================
 
 #include <iostream>
 #include "BoardGame_Classes.h"
@@ -375,11 +381,10 @@ int main() {
             cin.ignore();
             cin.get();
             again();
+
             int comp_choice;
             bool num = false;
-            cin >> comp_choice;
             do {
-
                 while (!num) {
                     if (!(cin >> comp_choice))
                     {
@@ -388,14 +393,12 @@ int main() {
                         cin.ignore(1000, '\n');
                         continue ;
                     }
-
-                 num = true;
+                num = true;
                 }
                 if (comp_choice <= 3 && comp_choice >= 1)
                 {
                     break;
                 }
-
                 cout << "    |------------------------------------------|\n";
                 cout << "    |            INVALID SELECTION             |\n";
                 cout << "    |------------------------------------------|\n";
