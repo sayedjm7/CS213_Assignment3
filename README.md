@@ -1,6 +1,6 @@
 ## Student Team Info
 
-| #  | Name    | ID    | Section | Filters Implemented    |
+| #  | Name    | ID    | Section |      |
 |---|---|---|---|---|
 | 1  | Zyad Ahmed Abuelyazed Ammen    | 20240208 | S32    |     |
 | 2  | Sayed Mohamed Sayed El-Badawy Mohamed   | 20240255 | S All-B  |    |
